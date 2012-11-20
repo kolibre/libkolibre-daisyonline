@@ -1,0 +1,28 @@
+--- a/adb_UAKType.c
++++ b/adb_UAKType.c
+@@ -343,10 +343,12 @@
+                   
+                     else if(!dont_care_minoccurs)
+                     {
++                        /*
+                         if(element_qname)
+                         {
+                             axutil_qname_free(element_qname, env);
+                         }
++                        */
+                         /* this is not a nillable element*/
+                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "required attribute issuerID missing");
+                         return AXIS2_FAILURE;
+@@ -397,10 +399,12 @@
+                   
+                     else if(!dont_care_minoccurs)
+                     {
++                        /*
+                         if(element_qname)
+                         {
+                             axutil_qname_free(element_qname, env);
+                         }
++                        */
+                         /* this is not a nillable element*/
+                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "required attribute collectionID missing");
+                         return AXIS2_FAILURE;

@@ -1,0 +1,65 @@
+--- a/axis2_stub_Kolibre_DaisyOnline.c
++++ b/axis2_stub_Kolibre_DaisyOnline.c
+@@ -1428,7 +1428,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -2429,7 +2429,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -2691,7 +2691,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -3698,7 +3698,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -4021,7 +4021,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -4277,7 +4277,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )
+@@ -4632,7 +4632,7 @@
+                     }
+                 }
+                 AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+-                return NULL;
++                return (axis2_bool_t)NULL;
+              }
+             
+                     if ( NULL == ret_node )

@@ -1,0 +1,21 @@
+POST /daisyonline/service.php HTTP/1.1
+Host: localhost:8888
+User-Agent: Axis2C/1.6.0
+SOAPAction: "/getQuestions"
+Content-Length: 435
+Content-Type: text/xml;charset=UTF-8
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><n:getQuestions xsi:type="userResponse_type0" xmlns:xsi="http://www.daisy.org/ns/daisy-online/" xmlns:n="http://www.daisy.org/ns/daisy-online/"><n:userResponses xsi:type="userResponses_type0"><n:userResponse questionID="search" xsi:type="userResponse_type0"></n:userResponse></n:userResponses></n:getQuestions></soapenv:Body></soapenv:Envelope>
+
+HTTP/1.1 200 OK
+Date: Mon, 18 Jul 2011 14:05:44 GMT
+Server: Apache/2.2.9 (Debian) PHP/5.2.6-1+lenny9 with Suhosin-Patch mod_ssl/2.2.9 OpenSSL/0.9.8g mod_perl/2.0.4 Perl/v5.10.0
+X-Powered-By: PHP/5.2.6-1+lenny9
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 1084
+Connection: close
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://www.daisy.org/ns/daisy-online/"><SOAP-ENV:Body><ns1:getQuestionsResponse><ns1:questions><ns1:inputQuestion id="q2-1"><ns1:inputTypes><ns1:input type="TEXT_ALPHANUMERIC"/></ns1:inputTypes><ns1:label xml:lang="en"><ns1:text>Full text search</ns1:text></ns1:label></ns1:inputQuestion><ns1:inputQuestion id="q2-2"><ns1:inputTypes><ns1:input type="AUDIO"/></ns1:inputTypes><ns1:label xml:lang="en"><ns1:text>Full audio search</ns1:text></ns1:label></ns1:inputQuestion><ns1:multipleChoiceQuestion id="q2-3" allowMultipleSelections="true"><ns1:label xml:lang="en"><ns1:text>Categories</ns1:text></ns1:label><ns1:choices><ns1:choice id="c1"><ns1:label xml:lang="en"><ns1:text>Daisy 2.02</ns1:text></ns1:label></ns1:choice><ns1:choice id="c2"><ns1:label xml:lang="en"><ns1:text>ANSI/NISO Z39.86-2005</ns1:text></ns1:label></ns1:choice></ns1:choices></ns1:multipleChoiceQuestion></ns1:questions></ns1:getQuestionsResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>

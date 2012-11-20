@@ -1,0 +1,445 @@
+--- a/adb_bookmarkContentChoice_type0.c
++++ b/adb_bookmarkContentChoice_type0.c
+@@ -270,10 +270,10 @@
+                                         qname = axiom_element_get_qname(current_element, env, current_node);
+                                     }
+                                    
+-                                 element_qname = axutil_qname_create(env, "bookmarkContentSequence_type0", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
++                                 element_qname = axutil_qname_create(env, "timeOffset", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
+                                  
+ 
+-                           if (adb_bookmarkContentSequence_type0_is_particle() ||  
++                           if (
+                                 (current_node   && current_element && (axutil_qname_equals(element_qname, env, qname))))
+                            {
+                               if( current_node   && current_element && (axutil_qname_equals(element_qname, env, qname)))
+--- a/adb_bookmarkSet_type0.c
++++ b/adb_bookmarkSet_type0.c
+@@ -618,12 +618,13 @@
+ 
+                      
+                      /*
+-                      * building bookmarkSetChoice_type1 element
++                      * building bookmark or hilite element
+                       */
+                      
+                      
+                      
+-                                    element_qname = axutil_qname_create(env, "bookmarkSetChoice_type1", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
++                                    axutil_qname_t *bookmark_qname = axutil_qname_create(env, "bookmark", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
++                                    axutil_qname_t *hilite_qname = axutil_qname_create(env, "hilite", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
+                                   
+                                
+                                for (i = 0, sequence_broken = 0, current_node = (is_early_node_valid?axiom_node_get_next_sibling(current_node, env):current_node); !sequence_broken && current_node != NULL;) 
+@@ -639,36 +640,75 @@
+                                   current_element = (axiom_element_t *)axiom_node_get_data_element(current_node, env);
+                                   qname = axiom_element_get_qname(current_element, env, current_node);
+ 
+-                                  if (adb_bookmarkSetChoice_type1_is_particle() ||  
+-                                    (current_node && current_element && (axutil_qname_equals(element_qname, env, qname))))
++                                  if ( current_node && current_element && (axutil_qname_equals(bookmark_qname, env, qname)))
+                                   {
+                                   
+-                                      if( current_node && current_element && (axutil_qname_equals(element_qname, env, qname)))
+-                                      {
+                                           is_early_node_valid = AXIS2_TRUE;
+-                                      }
++
+                                       
+                                      
+-                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_bookmarkSetChoice_type1");
++                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_bookmark_type0");
+                                           
+-                                          status =  adb_bookmarkSetChoice_type1_deserialize((adb_bookmarkSetChoice_type1_t*)element, env,
++                                          status =  adb_bookmark_type0_deserialize((adb_bookmark_type0_t*)element, env,
+                                                                                  &current_node, &is_early_node_valid, AXIS2_FALSE);
+                                           
+                                           if(AXIS2_FAILURE ==  status)
+                                           {
+-                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element bookmarkSetChoice_type1 ");
++                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element bookmark ");
+                                           }
+                                           else
+                                           {
+-                                            axutil_array_list_add_at(arr_list, env, i, element);
++                                              adb_bookmarkSetChoice_type1_t *choice = adb_bookmarkSetChoice_type1_create(env);
++                                              adb_bookmarkSetChoice_type1_set_bookmark(choice, env, (adb_bookmark_type0_t*)element);
++                                              axutil_array_list_add_at(arr_list, env, i, choice);
+                                           }
+                                         
+                                      if(AXIS2_FAILURE ==  status)
+                                      {
+-                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for bookmarkSetChoice_type1 ");
+-                                         if(element_qname)
++                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for bookmark ");
++                                         if(bookmark_qname)
+                                          {
+-                                            axutil_qname_free(element_qname, env);
++                                            axutil_qname_free(bookmark_qname, env);
++                                         }
++                                         if(arr_list)
++                                         {
++                                            axutil_array_list_free(arr_list, env);
++                                         }
++                                         return AXIS2_FAILURE;
++                                     }
++
++                                     i ++;
++                                    current_node = axiom_node_get_next_sibling(current_node, env);
++                                  }
++                                  else if ( current_node && current_element && (axutil_qname_equals(hilite_qname, env, qname)))
++                                  {
++
++                                          is_early_node_valid = AXIS2_TRUE;
++
++
++
++                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_hilite_type0");
++
++                                          status =  adb_hilite_type0_deserialize((adb_hilite_type0_t*)element, env,
++                                                                                 &current_node, &is_early_node_valid, AXIS2_FALSE);
++
++                                          if(AXIS2_FAILURE ==  status)
++                                          {
++                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element hilite ");
++                                          }
++                                          else
++                                          {
++                                              adb_bookmarkSetChoice_type1_t *choice = adb_bookmarkSetChoice_type1_create(env);
++                                              adb_bookmarkSetChoice_type1_set_hilite(choice, env, (adb_hilite_type0_t*)element);
++                                              axutil_array_list_add_at(arr_list, env, i, choice);
++                                          }
++
++                                     if(AXIS2_FAILURE ==  status)
++                                     {
++                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for hilite ");
++                                         if(hilite_qname)
++                                         {
++                                            axutil_qname_free(hilite_qname, env);
+                                          }
+                                          if(arr_list)
+                                          {
+@@ -721,6 +761,16 @@
+                      axutil_qname_free(element_qname, env);
+                      element_qname = NULL;
+                   }
++                  if(bookmark_qname)
++                  {
++                      axutil_qname_free(bookmark_qname, env);
++                      bookmark_qname = NULL;
++                  }
++                  if(hilite_qname)
++                  {
++                      axutil_qname_free(hilite_qname, env);
++                      hilite_qname = NULL;
++                  }
+                  
+           return status;
+        }
+--- a/adb_bookmark_type0.c
++++ b/adb_bookmark_type0.c
+@@ -685,17 +685,7 @@
+                 if(_bookmark_type0->is_valid_lang)
+                 {
+                 
+-                        if(!(p_prefix = (axis2_char_t*)axutil_hash_get(namespaces, "http://www.w3.org/XML/1998/namespace", AXIS2_HASH_KEY_STRING)))
+-                        {
+-                            p_prefix = (axis2_char_t*)AXIS2_MALLOC(env->allocator, sizeof (axis2_char_t) * ADB_DEFAULT_NAMESPACE_PREFIX_LIMIT);
+-                            sprintf(p_prefix, "n%d", (*next_ns_index)++);
+-                            axutil_hash_set(namespaces, "http://www.w3.org/XML/1998/namespace", AXIS2_HASH_KEY_STRING, p_prefix);
+-                            axiom_element_declare_namespace_assume_param_ownership(parent_element, env, axiom_namespace_create (env,
+-                                                     "http://www.w3.org/XML/1998/namespace",
+-                                                     p_prefix));
+-                        }
+-                      adb_lang_type0_declare_parent_namespaces(_bookmark_type0->property_lang,
+-                                                                                      env, parent_element, namespaces, next_ns_index);
++                        p_prefix = (axis2_char_t*)axutil_strdup(env, "xml");
+                            text_value = adb_lang_type0_serialize_to_string(_bookmark_type0->property_lang, env, namespaces);
+                            string_to_stream = (axis2_char_t*) AXIS2_MALLOC (env-> allocator, sizeof (axis2_char_t) *
+                                                             (5  + ADB_DEFAULT_NAMESPACE_PREFIX_LIMIT +
+@@ -933,25 +923,10 @@
+                        if(_bookmark_type0->is_valid_lang)
+                        {
+                        
+-                           if(!(p_prefix = (axis2_char_t*)axutil_hash_get(namespaces, "http://www.w3.org/XML/1998/namespace", AXIS2_HASH_KEY_STRING)))
+-                           {
+-                               p_prefix = (axis2_char_t*)AXIS2_MALLOC(env->allocator, sizeof (axis2_char_t) * ADB_DEFAULT_NAMESPACE_PREFIX_LIMIT);
+-                               sprintf(p_prefix, "n%d", (*next_ns_index)++);
+-                               axutil_hash_set(namespaces, "http://www.w3.org/XML/1998/namespace", AXIS2_HASH_KEY_STRING, p_prefix);
+-                               
+-                               axiom_element_declare_namespace_assume_param_ownership(parent_element, env, axiom_namespace_create (env,
+-                                                "http://www.w3.org/XML/1998/namespace",
+-                                                p_prefix));
+-                           }
+-                           ns1 = axiom_namespace_create (env,
+-                                                "http://www.w3.org/XML/1998/namespace",
+-                                                p_prefix);
+-                         adb_lang_type0_declare_parent_namespaces(_bookmark_type0->property_lang,
+-                                                                                      env, parent_element, namespaces, next_ns_index);
+                            text_value = adb_lang_type0_serialize_to_string(_bookmark_type0->property_lang, env, namespaces);
+                            if(text_value)
+                            {
+-                               text_attri = axiom_attribute_create (env, "lang", text_value, ns1);
++                               text_attri = axiom_attribute_create (env, "lang", text_value, "xml");
+                                axiom_element_add_attribute (parent_element, env, text_attri, parent);
+                                AXIS2_FREE(env-> allocator, text_value);
+                            }
+--- a/adb_hiliteContentChoice_type0.c
++++ b/adb_hiliteContentChoice_type0.c
+@@ -270,10 +270,10 @@
+                                         qname = axiom_element_get_qname(current_element, env, current_node);
+                                     }
+                                    
+-                                 element_qname = axutil_qname_create(env, "hiliteContentSequence_type0", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
++                                 element_qname = axutil_qname_create(env, "timeOffset", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
+                                  
+ 
+-                           if (adb_hiliteContentSequence_type0_is_particle() ||  
++                           if (
+                                 (current_node   && current_element && (axutil_qname_equals(element_qname, env, qname))))
+                            {
+                               if( current_node   && current_element && (axutil_qname_equals(element_qname, env, qname)))
+--- a/adb_note_type0.c
++++ b/adb_note_type0.c
+@@ -287,10 +287,10 @@
+                                         qname = axiom_element_get_qname(current_element, env, current_node);
+                                     }
+                                    
+-                                 element_qname = axutil_qname_create(env, "noteSequence_type0", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
++                                 element_qname = axutil_qname_create(env, "text", "http://www.daisy.org/z3986/2005/bookmark/", NULL);
+                                  
+ 
+-                           if (adb_noteSequence_type0_is_particle() ||  
++                           if (
+                                 (current_node   && current_element && (axutil_qname_equals(element_qname, env, qname))))
+                            {
+                               if( current_node   && current_element && (axutil_qname_equals(element_qname, env, qname)))
+--- a/axis2_extension_mapper.c
++++ b/axis2_extension_mapper.c
+@@ -134,6 +134,14 @@
+         #include "adb_supportedUplinkAudioCodecs_type0.h"
+         #include "adb_IdString.h"
+         #include "adb_ObjectType.h"
++        #include "adb_bookmarkContent.h"
++        #include "adb_bookmarkContentChoice_type0.h"
++        #include "adb_bookmarkContentSequence_type0.h"
++        #include "adb_bookmarkSetChoice_type1.h"
++        #include "adb_hiliteContent.h"
++        #include "adb_hiliteContentChoice_type0.h"
++        #include "adb_hiliteContentSequence_type0.h"
++        #include "adb_noteSequence_type0.h"
+         
+ 
+         struct adb_type
+@@ -1285,6 +1293,46 @@
+                 return (adb_stubtype_t*) adb_ObjectType_create(env);
+             }
+             
++            if (axutil_strcmp(default_type, "adb_bookmarkContent") == 0)
++            {
++                return (adb_stubtype_t*) adb_bookmarkContent_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentChoice_type0") == 0)
++            {
++                return (adb_stubtype_t*) adb_bookmarkContentChoice_type0_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentSequence_type0") == 0)
++            {
++                return (adb_stubtype_t*) adb_bookmarkContentSequence_type0_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkSetChoice_type1") == 0)
++            {
++                return (adb_stubtype_t*) adb_bookmarkSetChoice_type1_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContent") == 0)
++            {
++                return (adb_stubtype_t*) adb_hiliteContent_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentChoice_type0") == 0)
++            {
++                return (adb_stubtype_t*) adb_hiliteContentChoice_type0_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentSequence_type0") == 0)
++            {
++                return (adb_stubtype_t*) adb_hiliteContentSequence_type0_create(env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_noteSequence_type0") == 0)
++            {
++                return (adb_stubtype_t*) adb_noteSequence_type0_create(env);
++            }
++
+ 
+             return NULL;
+         }
+@@ -2573,6 +2621,54 @@
+                 (adb_ObjectType_t*) _object, env);
+             }
+             
++            if (axutil_strcmp(default_type, "adb_bookmarkContent") == 0)
++            {
++                return adb_bookmarkContent_free_obj(
++                (adb_bookmarkContent_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentChoice_type0") == 0)
++            {
++                return adb_bookmarkContentChoice_type0_free_obj(
++                (adb_bookmarkContentChoice_type0_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentSequence_type0") == 0)
++            {
++                return adb_bookmarkContentSequence_type0_free_obj(
++                (adb_bookmarkContentSequence_type0_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkSetChoice_type1") == 0)
++            {
++                return adb_bookmarkSetChoice_type1_free_obj(
++                (adb_bookmarkSetChoice_type1_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContent") == 0)
++            {
++                return adb_hiliteContent_free_obj(
++                (adb_hiliteContent_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentChoice_type0") == 0)
++            {
++                return adb_hiliteContentChoice_type0_free_obj(
++                (adb_hiliteContentChoice_type0_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentSequence_type0") == 0)
++            {
++                return adb_hiliteContentSequence_type0_free_obj(
++                (adb_hiliteContentSequence_type0_t*) _object, env);
++            }
++
++            if (axutil_strcmp(default_type, "adb_noteSequence_type0") == 0)
++            {
++                return adb_noteSequence_type0_free_obj(
++                (adb_noteSequence_type0_t*) _object, env);
++            }
++
+ 
+             return AXIS2_FAILURE;
+         }
+@@ -3864,6 +3960,54 @@
+                 (adb_ObjectType_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
+             }
+             
++            if (axutil_strcmp(default_type, "adb_bookmarkContent") == 0)
++            {
++                return adb_bookmarkContent_deserialize_obj(
++                (adb_bookmarkContent_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentChoice_type0") == 0)
++            {
++                return adb_bookmarkContentChoice_type0_deserialize_obj(
++                (adb_bookmarkContentChoice_type0_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentSequence_type0") == 0)
++            {
++                return adb_bookmarkContentSequence_type0_deserialize_obj(
++                (adb_bookmarkContentSequence_type0_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkSetChoice_type1") == 0)
++            {
++                return adb_bookmarkSetChoice_type1_deserialize_obj(
++                (adb_bookmarkSetChoice_type1_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContent") == 0)
++            {
++                return adb_hiliteContent_deserialize_obj(
++                (adb_hiliteContent_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentChoice_type0") == 0)
++            {
++                return adb_hiliteContentChoice_type0_deserialize_obj(
++                (adb_hiliteContentChoice_type0_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentSequence_type0") == 0)
++            {
++                return adb_hiliteContentSequence_type0_deserialize_obj(
++                (adb_hiliteContentSequence_type0_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
++            if (axutil_strcmp(default_type, "adb_noteSequence_type0") == 0)
++            {
++                return adb_noteSequence_type0_deserialize_obj(
++                (adb_noteSequence_type0_t*) _object, env, dp_parent, dp_is_early_node_valid, dont_care_minoccurs);
++            }
++
+ 
+             return AXIS2_FAILURE;
+         }
+@@ -5157,6 +5301,54 @@
+                 (adb_ObjectType_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
+             }
+             
++            if (axutil_strcmp(default_type, "adb_bookmarkContent") == 0)
++            {
++                return adb_bookmarkContent_serialize_obj(
++                (adb_bookmarkContent_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentChoice_type0") == 0)
++            {
++                return adb_bookmarkContentChoice_type0_serialize_obj(
++                (adb_bookmarkContentChoice_type0_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkContentSequence_type0") == 0)
++            {
++                return adb_bookmarkContentSequence_type0_serialize_obj(
++                (adb_bookmarkContentSequence_type0_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_bookmarkSetChoice_type1") == 0)
++            {
++                return adb_bookmarkSetChoice_type1_serialize_obj(
++                (adb_bookmarkSetChoice_type1_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContent") == 0)
++            {
++                return adb_hiliteContent_serialize_obj(
++                (adb_hiliteContent_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentChoice_type0") == 0)
++            {
++                return adb_hiliteContentChoice_type0_serialize_obj(
++                (adb_hiliteContentChoice_type0_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_hiliteContentSequence_type0") == 0)
++            {
++                return adb_hiliteContentSequence_type0_serialize_obj(
++                (adb_hiliteContentSequence_type0_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
++            if (axutil_strcmp(default_type, "adb_noteSequence_type0") == 0)
++            {
++                return adb_noteSequence_type0_serialize_obj(
++                (adb_noteSequence_type0_t*) _object, env, om_node, om_element, tag_closed, namespaces, next_ns_index);
++            }
++
+ 
+             return AXIS2_FAILURE;
+         }

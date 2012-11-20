@@ -1,0 +1,26 @@
+--- a/adb_label_type0.c
++++ b/adb_label_type0.c
+@@ -530,11 +530,23 @@
+                       
+                             element =  (void*)adb_lang_type0_create(env);
+                             adb_lang_type0_deserialize_from_string((adb_lang_type0_t*)element, env, attrib_text, parent);
++                            if(adb_lang_type0_is_valid_language((adb_lang_type0_t*)element, env))
+                            adb_label_type0_set_lang(_label_type0,
+                                                           env, (adb_lang_type0_t*)element);
+                         
+                     }
+                   
++                    else if(!dont_care_minoccurs)
++                    {
++                        if(element_qname)
++                        {
++                            axutil_qname_free(element_qname, env);
++                        }
++                        /* this is not a nillable element*/
++                        AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "required attribute xml:lang missing");
++                        return AXIS2_FAILURE;
++                    }
++                  
+                   if(element_qname)
+                   {
+                      axutil_qname_free(element_qname, env);

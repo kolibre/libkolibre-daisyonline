@@ -1,0 +1,24 @@
+--- a/adb_lang_type0.c
++++ b/adb_lang_type0.c
+@@ -188,7 +188,7 @@
+                     {
+                         axutil_hash_this(hi, &key, NULL, &val);
+                         
+-                        if(strstr((axis2_char_t*)key, "type|http://www.w3.org/2001/XMLSchema-instance"))
++                        if(strstr((axis2_char_t*)key, "lang|http://www.w3.org/XML/1998/namespace"))
+                         {
+                             the_attri = (axiom_attribute_t*)val;
+                             break;
+@@ -223,10 +223,10 @@
+                     status = adb_lang_type0_reset_members(_lang_type0, env);
+                }
+                 
+-               else if(!axutil_strcmp(attrib_text, "language"))
++               else
+                {
+ 
+-                adb_lang_type0_set_language(_lang_type0,
++                status = adb_lang_type0_set_language(_lang_type0,
+                                                     env, attrib_text);
+                      
+ 

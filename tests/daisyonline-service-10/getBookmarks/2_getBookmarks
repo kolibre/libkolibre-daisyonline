@@ -1,0 +1,21 @@
+POST /daisyonline/service.php HTTP/1.1
+Host: localhost:8888
+User-Agent: Axis2C/1.6.0
+SOAPAction: "/getBookmarks"
+Content-Length: 241
+Content-Type: text/xml;charset=UTF-8
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><n:getBookmarks xmlns:n="http://www.daisy.org/ns/daisy-online/"><n:contentID>contentID</n:contentID></n:getBookmarks></soapenv:Body></soapenv:Envelope>
+
+HTTP/1.1 200 OK
+Date: Mon, 18 Jul 2011 14:05:44 GMT
+Server: Apache/2.2.9 (Debian) PHP/5.2.6-1+lenny9 with Suhosin-Patch mod_ssl/2.2.9 OpenSSL/0.9.8g mod_perl/2.0.4 Perl/v5.10.0
+X-Powered-By: PHP/5.2.6-1+lenny9
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 527
+Connection: close
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="utf-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Body><n1:getBookmarksResponse xmlns:n1="http://www.daisy.org/ns/daisy-online/" xmlns:n2="http://www.daisy.org/z3986/2005/bookmark/"><n2:bookmarkSet><n2:title><n2:text>text</n2:text></n2:title><n2:uid>uid</n2:uid><n2:lastmark><n2:ncxRef>ncxRef</n2:ncxRef><n2:URI>URI</n2:URI><n2:charOffset>1</n2:charOffset></n2:lastmark></n2:bookmarkSet></n1:getBookmarksResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>

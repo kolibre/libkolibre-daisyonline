@@ -1,0 +1,130 @@
+--- a/adb_questions_type0.c
++++ b/adb_questions_type0.c
+@@ -311,12 +311,14 @@
+ 
+                      
+                      /*
+-                      * building questionsChoice_type1 element
++                      * building multipeChoiceQuestion or inputQuestion element
+                       */
+                      
+                      
+                      
+                                     element_qname = axutil_qname_create(env, "questionsChoice_type1", "http://www.daisy.org/ns/daisy-online/", NULL);
++                                    axutil_qname_t *multiple_qname = axutil_qname_create(env, "multipleChoiceQuestion", "http://www.daisy.org/ns/daisy-online/", NULL);
++                                    axutil_qname_t *input_qname = axutil_qname_create(env, "inputQuestion", "http://www.daisy.org/ns/daisy-online/", NULL);
+                                   
+                                
+                                for (i = 0, sequence_broken = 0, current_node = first_node; !sequence_broken && current_node != NULL;) 
+@@ -332,36 +334,73 @@
+                                   current_element = (axiom_element_t *)axiom_node_get_data_element(current_node, env);
+                                   qname = axiom_element_get_qname(current_element, env, current_node);
+ 
+-                                  if (adb_questionsChoice_type1_is_particle() ||  
+-                                    (current_node && current_element && (axutil_qname_equals(element_qname, env, qname))))
++                                  if (current_node && current_element && (axutil_qname_equals(multiple_qname, env, qname)))
+                                   {
+                                   
+-                                      if( current_node && current_element && (axutil_qname_equals(element_qname, env, qname)))
+-                                      {
+                                           is_early_node_valid = AXIS2_TRUE;
+-                                      }
+                                       
+                                      
+-                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_questionsChoice_type1");
++                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_multipleChoiceQuestion_type0");
+                                           
+-                                          status =  adb_questionsChoice_type1_deserialize((adb_questionsChoice_type1_t*)element, env,
++                                          status =  adb_multipleChoiceQuestion_type0_deserialize((adb_multipleChoiceQuestion_type0_t*)element, env,
+                                                                                  &current_node, &is_early_node_valid, AXIS2_TRUE);
+                                           
+                                           if(AXIS2_FAILURE ==  status)
+                                           {
+-                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element questionsChoice_type1 ");
++                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element multipleChoiceQuestion ");
+                                           }
+                                           else
+                                           {
+-                                            axutil_array_list_add_at(arr_list, env, i, element);
++                                              adb_questionsChoice_type1_t *choice = adb_questionsChoice_type1_create(env);
++                                              adb_questionsChoice_type1_set_multipleChoiceQuestion(choice, env, (adb_multipleChoiceQuestion_type0_t*)element);
++                                              axutil_array_list_add_at(arr_list, env, i, choice);
+                                           }
+                                         
+                                      if(AXIS2_FAILURE ==  status)
+                                      {
+-                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for questionsChoice_type1 ");
+-                                         if(element_qname)
++                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for multipleChoiceQuestion ");
++                                         if(multiple_qname)
+                                          {
+-                                            axutil_qname_free(element_qname, env);
++                                            axutil_qname_free(multiple_qname, env);
++                                         }
++                                         if(arr_list)
++                                         {
++                                            axutil_array_list_free(arr_list, env);
++                                         }
++                                         return AXIS2_FAILURE;
++                                     }
++
++                                     i ++;
++                                    current_node = axiom_node_get_next_sibling(current_node, env);
++                                  }
++                                  else if (current_node && current_element && (axutil_qname_equals(input_qname, env, qname)))
++                                  {
++                                  
++                                          is_early_node_valid = AXIS2_TRUE;
++                                      
++                                     
++                                          element = (void*)axis2_extension_mapper_create_from_node(env, &current_node, "adb_inputQuestion_type0");
++                                          
++                                          status =  adb_inputQuestion_type0_deserialize((adb_inputQuestion_type0_t*)element, env,
++                                                                                 &current_node, &is_early_node_valid, AXIS2_TRUE);
++                                          
++                                          if(AXIS2_FAILURE ==  status)
++                                          {
++                                              AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in building element inputQuestion ");
++                                          }
++                                          else
++                                          {
++                                              adb_questionsChoice_type1_t *choice = adb_questionsChoice_type1_create(env);
++                                              adb_questionsChoice_type1_set_inputQuestion(choice, env, (adb_inputQuestion_type0_t*)element);
++                                              axutil_array_list_add_at(arr_list, env, i, choice);
++                                          }
++                                        
++                                     if(AXIS2_FAILURE ==  status)
++                                     {
++                                         AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "failed in setting the value for inputQuestion ");
++                                         if(input_qname)
++                                         {
++                                            axutil_qname_free(input_qname, env);
+                                          }
+                                          if(arr_list)
+                                          {
+@@ -382,7 +421,7 @@
+                                }
+ 
+                                
+-                                   if (i < 1)
++                                   if (i < 0)
+                                    {
+                                      /* found element out of order */
+                                      AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "questionsChoice_type1 (@minOccurs = '1') only have %d elements", i);
+@@ -414,6 +453,16 @@
+                      axutil_qname_free(element_qname, env);
+                      element_qname = NULL;
+                   }
++                  if(multiple_qname)
++                  {
++                     axutil_qname_free(multiple_qname, env);
++                     multiple_qname = NULL;
++                  }
++                  if(input_qname)
++                  {
++                     axutil_qname_free(input_qname, env);
++                     input_qname = NULL;
++                  }
+                  
+ 
+                      

@@ -1,0 +1,21 @@
+POST /daisyonline/service.php HTTP/1.1
+Host: localhost:8888
+User-Agent: Axis2C/1.6.0
+SOAPAction: "/setBookmarks"
+Content-Length: 534
+Content-Type: text/xml;charset=UTF-8
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"><soapenv:Body><n:setBookmarks xsi:type="title_type0" xmlns:xsi="http://www.daisy.org/z3986/2005/bookmark/" xmlns:n="http://www.daisy.org/ns/daisy-online/" xmlns:n0="http://www.daisy.org/z3986/2005/bookmark/"><n:contentID>not_a_valid_content_id</n:contentID><n0:bookmarkSet xsi:type="bookmarkSet_type0"><n0:title xsi:type="title_type0"><n0:text>text</n0:text></n0:title><n0:uid>uid</n0:uid></n0:bookmarkSet></n:setBookmarks></soapenv:Body></soapenv:Envelope>
+
+HTTP/1.1 500 Internal Service Error
+Date: Thu, 11 Aug 2011 06:51:54 GMT
+Server: Apache/2.2.9 (Debian) PHP/5.2.6-1+lenny13 with Suhosin-Patch mod_ssl/2.2.9 OpenSSL/0.9.8g mod_perl/2.0.4 Perl/v5.10.0
+X-Powered-By: PHP/5.2.6-1+lenny13
+Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0
+Pragma: no-cache
+Content-Length: 404
+Connection: close
+Content-Type: text/xml; charset=utf-8
+
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="http://www.daisy.org/ns/daisy-online/"><SOAP-ENV:Body><SOAP-ENV:Fault><faultcode>SOAP-ENV:Client</faultcode><faultstring>Invalid Parameter</faultstring><faultactor></faultactor><detail><ns1:invalidParameterFault/></detail></SOAP-ENV:Fault></SOAP-ENV:Body></SOAP-ENV:Envelope>
