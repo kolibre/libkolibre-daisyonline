@@ -124,7 +124,6 @@ AC_CHECK_FUNCS([memset strchr strdup strstr])
 
 AC_CONFIG_FILES([libkolibre-daisyonline.pc
                  Makefile
-                 doxygen.cfg
                  src/Makefile
                  src/stubs/Makefile
                  tests/Makefile
