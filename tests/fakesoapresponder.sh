@@ -52,11 +52,10 @@ done
 
 debug "PID:$$ Reading $contentlength bytes of request body $REPLY"
 # read body char by char
-read -r -n 1 -t 1
-while [ $? -eq 0 ] && [ $contentlength -gt 1 ]; do
-	BODY="${BODY}${REPLY}"
-	let contentlength=($contentlength - 1)
-        read -r -n 1 -t 1
+while [ $contentlength -gt 0 ]; do
+    read -r -n 1 -t 1 || break
+    BODY="${BODY}${REPLY}"
+    contentlength=$(($contentlength - 1))
 done
 debug "PID:$$ Request-body: $BODY"
 
