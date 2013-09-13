@@ -99,7 +99,7 @@ errornonetwork_SOURCES = errornonetwork.cpp
 errorinvaliduri_SOURCES = errorinvaliduri.cpp
 errormissinglangattribute_SOURCES = errormissinglangattribute.cpp
 asyncsessionestablishment_SOURCES = asyncsessionestablishment.c
-asyncsessionestablishment_CPPFLAGS = @AXIS2C_CFLAGS@ -g -I$(top_srcdir)/src -I$(top_srcdir)/src/stubs
+asyncsessionestablishment_CPPFLAGS = @AXIS2C_CFLAGS@ -g -I$(top_srcdir)/src -I$(top_srcdir)/src/stubs -I${top_builddir}/src
 asyncsessionestablishment_LDFLAGS = @AXIS2C_LIBS@ \
 									-laxutil \
 									-laxis2_axiom \
