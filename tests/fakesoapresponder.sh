@@ -93,6 +93,22 @@ fi
 orderfile=$2
 
 order=`cat $orderfile`
+if [ $# -ge 3 ] && [ $3 = 'stresstest' ]; then
+    # compare body in request with body in datafolder
+    datafile="$datafolder/request"
+    if [ ! -f "$datafile" ]; then
+        debug "PID:$$ Data file '$datafile' not found, returning InternalServerErrorFault"
+        echo "$internalServerError"
+        exit
+    fi
+    data=$(cat $datafile)
+    if [ "$data" != "$BODY" ]; then
+        debug "PID:$$ body in request does not match with body in '$datafile', returning InternalServerErrorFault"
+        echo "$internalServerError"
+        exit
+    fi
+    order="1"
+fi
 operation=`echo $soapaction | tr -d '/'`
 responsefile="${datafolder}/${order}_${operation}"
 if [ ! -f "$responsefile" ]; then
