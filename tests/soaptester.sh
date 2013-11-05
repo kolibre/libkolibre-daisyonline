@@ -18,13 +18,13 @@ if [ $# -lt 2 ]; then
 fi
 
 if [ -x /usr/bin/gdb ]; then
-    PREFIX="libtool --mode=execute gdb -return-child-result -x ${srcdir:-.}/run --args"
+    PREFIX="libtool --mode=execute gdb --batch --return-child-result -x ${srcdir:-.}/run --args"
 fi
 
 # run with valgrind
 if [ $# -ge 3 ] && [ $3 = 'valgrind' ]; then
     if [ -x /usr/bin/valgrind ]; then
-        PREFIX="libtool --mode=execute valgrind --leak-check=full --tool=memcheck --suppressions=${srcdir:-.}/memoryleak.supp"
+        PREFIX="libtool --mode=execute valgrind -v --leak-check=full --tool=memcheck --suppressions=${srcdir:-.}/memoryleak.supp"
     fi
 else if [ $# -ge 3 ] && [ $3 = 'stresstest' ]; then
         SUFFIX="stresstest"
