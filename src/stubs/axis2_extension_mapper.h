@@ -25,7 +25,7 @@
          * axis2_extension_mapper.h
          *
          * This file was auto-generated from WSDL
-         * by the Apache Axis2/Java version: 1.6.2  Built on : Oct 19, 2012 (02:20:52 EEST)
+         * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (09:21:13 EET)
          */
 
         #include <stdio.h>
