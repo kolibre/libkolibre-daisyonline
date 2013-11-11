@@ -48,6 +48,7 @@ patch -p0 < axis2_codegen_parse_soap_fault_reason.patch
 patch -p0 < axis2_codegen_type_name_changes.patch
 patch -p0 < axis2_codegen_free_memory_after_attribute_parse.patch
 patch -p0 < axis2_codegen_stop_deserialize_on_missing_attribute.patch
+patch -p1 < axis2_codegen_remove_xsi_types.patch
 #patch -p0 < axis2_codegen_free_memory_created_namespace.patch
 
 # build only modules codegen and adb-codegen

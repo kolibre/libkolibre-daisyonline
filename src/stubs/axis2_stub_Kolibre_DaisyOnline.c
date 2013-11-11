@@ -23,7 +23,7 @@
        * axis2_stub_Kolibre_DaisyOnline.c
        *
        * This file was auto-generated from WSDL for "Kolibre_DaisyOnline|http://www.daisy.org/ns/daisy-online/" service
-       * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (09:20:58 EET)
+       * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (03:44:43 EET)
        */
 
       #include "axis2_stub_Kolibre_DaisyOnline.h"

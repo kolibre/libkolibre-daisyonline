@@ -26,7 +26,7 @@
         * adb_EncryptedDataType.h
         *
         * This file was auto-generated from WSDL
-        * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (09:21:13 EET)
+        * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (03:44:52 EET)
         */
 
        /**

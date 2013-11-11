@@ -510,57 +510,11 @@
             if(!parent_tag_closed)
             {
             
-              
- 
-              if(!(xsi_prefix = (axis2_char_t*)axutil_hash_get(namespaces, "http://www.w3.org/2001/XMLSchema-instance", AXIS2_HASH_KEY_STRING)))
-              {
-                  /* it is better to stick with the standard prefix */
-                  xsi_prefix = (axis2_char_t*)axutil_strdup(env, "xsi");
-                  
-                  axutil_hash_set(namespaces, "http://www.w3.org/2001/XMLSchema-instance", AXIS2_HASH_KEY_STRING, xsi_prefix);
-
-                  if(parent_element)
-                  {
-                        axiom_namespace_t *element_ns = NULL;
-                        element_ns = axiom_namespace_create(env, "http://www.w3.org/2001/XMLSchema-instance",
-                                                            xsi_prefix);
-                        axiom_element_declare_namespace_assume_param_ownership(parent_element, env, element_ns);
-                  }
-              }
-              type_attrib = axutil_strcat(env, " ", xsi_prefix, ":type=\"DSAKeyValueTypeSequence_type1\"", NULL);
-              axutil_stream_write(stream, env, type_attrib, axutil_strlen(type_attrib));
-
-              AXIS2_FREE(env->allocator, type_attrib);
-                
               string_to_stream = ">"; 
               axutil_stream_write(stream, env, string_to_stream, axutil_strlen(string_to_stream));
               tag_closed = 1;
             
             }
-            else {
-              /* if the parent tag closed we would be able to declare the type directly on the parent element */ 
-              if(!(xsi_prefix = (axis2_char_t*)axutil_hash_get(namespaces, "http://www.w3.org/2001/XMLSchema-instance", AXIS2_HASH_KEY_STRING)))
-              {
-                  /* it is better to stick with the standard prefix */
-                  xsi_prefix = (axis2_char_t*)axutil_strdup(env, "xsi");
-                  
-                  axutil_hash_set(namespaces, "http://www.w3.org/2001/XMLSchema-instance", AXIS2_HASH_KEY_STRING, xsi_prefix);
-
-                  if(parent_element)
-                  {
-                        axiom_namespace_t *element_ns = NULL;
-                        element_ns = axiom_namespace_create(env, "http://www.w3.org/2001/XMLSchema-instance",
-                                                            xsi_prefix);
-                        axiom_element_declare_namespace_assume_param_ownership(parent_element, env, element_ns);
-                  }
-              }
-            }
-            xsi_ns = axiom_namespace_create (env,
-                                 "http://www.w3.org/2000/09/xmldsig#",
-                                 xsi_prefix);
-            xsi_type_attri = axiom_attribute_create (env, "type", "DSAKeyValueTypeSequence_type1", xsi_ns);
-            
-            axiom_element_add_attribute (parent_element, env, xsi_type_attri, parent);
         
                        if(!(p_prefix = (axis2_char_t*)axutil_hash_get(namespaces, "http://www.w3.org/2000/09/xmldsig#", AXIS2_HASH_KEY_STRING)))
                        {
