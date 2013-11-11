@@ -584,10 +584,6 @@
                         element_ns = axiom_namespace_create(env, "http://www.w3.org/2001/XMLSchema-instance",
                                                             xsi_prefix);
                         axiom_element_declare_namespace_assume_param_ownership(parent_element, env, element_ns);
-                        if(element_ns)
-                        {
-                            axiom_namespace_free(element_ns, env);
-                        }
                   }
               }
               type_attrib = axutil_strcat(env, " ", xsi_prefix, ":type=\"KeyExchange_type0\"", NULL);
@@ -615,10 +611,6 @@
                         element_ns = axiom_namespace_create(env, "http://www.w3.org/2001/XMLSchema-instance",
                                                             xsi_prefix);
                         axiom_element_declare_namespace_assume_param_ownership(parent_element, env, element_ns);
-                        if(element_ns)
-                        {
-                            axiom_namespace_free(element_ns, env);
-                        }
                   }
               }
             }

@@ -52,11 +52,10 @@ done
 
 debug "PID:$$ Reading $contentlength bytes of request body $REPLY"
 # read body char by char
-read -r -n 1 -t 1
-while [ $? -eq 0 ] && [ $contentlength -gt 1 ]; do
-	BODY="${BODY}${REPLY}"
-	let contentlength=($contentlength - 1)
-        read -r -n 1 -t 1
+while [ $contentlength -gt 0 ]; do
+    read -r -n 1 -t 1 || break
+    BODY="${BODY}${REPLY}"
+    contentlength=$(($contentlength - 1))
 done
 debug "PID:$$ Request-body: $BODY"
 
@@ -94,6 +93,22 @@ fi
 orderfile=$2
 
 order=`cat $orderfile`
+if [ $# -ge 3 ] && [ $3 = 'stresstest' ]; then
+    # compare body in request with body in datafolder
+    datafile="$datafolder/request"
+    if [ ! -f "$datafile" ]; then
+        debug "PID:$$ Data file '$datafile' not found, returning InternalServerErrorFault"
+        echo "$internalServerError"
+        exit
+    fi
+    data=$(cat $datafile)
+    if [ "$data" != "$BODY" ]; then
+        debug "PID:$$ body in request does not match with body in '$datafile', returning InternalServerErrorFault"
+        echo "$internalServerError"
+        exit
+    fi
+    order="1"
+fi
 operation=`echo $soapaction | tr -d '/'`
 responsefile="${datafolder}/${order}_${operation}"
 if [ ! -f "$responsefile" ]; then

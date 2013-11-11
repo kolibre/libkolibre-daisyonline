@@ -18,13 +18,16 @@ if [ $# -lt 2 ]; then
 fi
 
 if [ -x /usr/bin/gdb ]; then
-    PREFIX="libtool --mode=execute gdb -return-child-result -x ${srcdir:-.}/run --args"
+    PREFIX="libtool --mode=execute gdb --batch --return-child-result -x ${srcdir:-.}/run --args"
 fi
 
 # run with valgrind
 if [ $# -ge 3 ] && [ $3 = 'valgrind' ]; then
     if [ -x /usr/bin/valgrind ]; then
-        PREFIX="libtool --mode=execute valgrind --leak-check=full --tool=memcheck --suppressions=${srcdir:-.}/memoryleak.supp"
+        PREFIX="libtool --mode=execute valgrind -v --leak-check=full --tool=memcheck --suppressions=${srcdir:-.}/memoryleak.supp"
+    fi
+else if [ $# -ge 3 ] && [ $3 = 'stresstest' ]; then
+        SUFFIX="stresstest"
     fi
 fi
 
@@ -97,11 +100,11 @@ file=`readlink -f $0`
 path=`dirname $file`
 fakesoap="${path}/fakesoapresponder.sh"
 if [ $PROTOCOL = 'http' ]; then
-    socat TCP4-LISTEN:$PORT,fork,tcpwrap=script EXEC:"$fakesoap $2 $orderfile" &
+    socat TCP4-LISTEN:$PORT,fork,tcpwrap=script EXEC:"$fakesoap $2 $orderfile $SUFFIX" &
 else
     cert="${path}/ssl-server-crt.crt"
     key="${path}/ssl-private-key.key"
-    socat OPENSSL-LISTEN:$PORT,fork,tcpwrap=script,cert=$cert,key=$key,verify=0 EXEC:"$fakesoap $2 $orderfile" &
+    socat OPENSSL-LISTEN:$PORT,fork,tcpwrap=script,cert=$cert,key=$key,verify=0 EXEC:"$fakesoap $2 $orderfile $SUFFIX" &
 fi
 
 # setup test parameters

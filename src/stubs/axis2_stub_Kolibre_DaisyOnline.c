@@ -23,7 +23,7 @@
        * axis2_stub_Kolibre_DaisyOnline.c
        *
        * This file was auto-generated from WSDL for "Kolibre_DaisyOnline|http://www.daisy.org/ns/daisy-online/" service
-       * by the Apache Axis2/Java version: 1.6.2  Built on : Oct 19, 2012 (02:20:14 EEST)
+       * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (09:20:58 EET)
        */
 
       #include "axis2_stub_Kolibre_DaisyOnline.h"
@@ -218,7 +218,7 @@
            axis2_svc_add_op(svc, env, op);
          
            op_qname = axutil_qname_create(env,
-                                         "setBookmarks" ,
+                                         "logOn" ,
                                          "http://www.daisy.org/ns/daisy-online/",
                                          NULL);
            op = axis2_op_create_with_qname(env, op_qname);
@@ -240,7 +240,7 @@
            axis2_svc_add_op(svc, env, op);
          
            op_qname = axutil_qname_create(env,
-                                         "logOn" ,
+                                         "setBookmarks" ,
                                          "http://www.daisy.org/ns/daisy-online/",
                                          NULL);
            op = axis2_op_create_with_qname(env, op_qname);
@@ -328,7 +328,7 @@
            axis2_svc_add_op(svc, env, op);
          
            op_qname = axutil_qname_create(env,
-                                         "setReadingSystemAttributes" ,
+                                         "logOff" ,
                                          "http://www.daisy.org/ns/daisy-online/",
                                          NULL);
            op = axis2_op_create_with_qname(env, op_qname);
@@ -350,7 +350,7 @@
            axis2_svc_add_op(svc, env, op);
          
            op_qname = axutil_qname_create(env,
-                                         "logOff" ,
+                                         "setReadingSystemAttributes" ,
                                          "http://www.daisy.org/ns/daisy-online/",
                                          NULL);
            op = axis2_op_create_with_qname(env, op_qname);
@@ -2101,6 +2101,268 @@
         
          /**
           * auto generated method signature
+          * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
+          * @param stub The stub (axis2_stub_t)
+          * @param env environment ( mandatory)
+          * @param _username of the axis2_char_t*
+          * @param _password of the axis2_char_t*
+          *
+          * @return axis2_bool_t
+          */
+
+         axis2_bool_t AXIS2_CALL 
+         axis2_stub_op_Kolibre_DaisyOnline_logOn( axis2_stub_t *stub, const axutil_env_t *env,
+                                               axis2_char_t* _username,
+                                               axis2_char_t* _password,
+                                          axis2_stub_Kolibre_DaisyOnline_logOn_fault *fault)
+         {
+            axis2_svc_client_t *svc_client = NULL;
+            axis2_options_t *options = NULL;
+            axiom_node_t *ret_node = NULL;
+
+            const axis2_char_t *soap_action = NULL;
+            axutil_qname_t *op_qname =  NULL;
+            axiom_node_t *payload = NULL;
+            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
+            axutil_string_t *soap_act = NULL;
+
+            adb_logOnResponse_t* ret_val;
+            
+                            {
+                               adb_logOn_t* wrapper_adb_obj = adb_logOn_create_with_values(env,
+                                        _username,
+                                        _password);
+                                    payload = adb_logOn_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
+                                    if (wrapper_adb_obj)
+                                    {
+                                        adb_logOn_free(wrapper_adb_obj, env);
+                                    }
+                            }
+                           
+            svc_client = axis2_stub_get_svc_client(stub, env );
+            
+           
+            
+            
+
+            options = axis2_stub_get_options( stub, env);
+            if (NULL == options)
+            {
+                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "options is null in stub");
+                return (axis2_bool_t)NULL;
+            }
+            soap_act = axis2_options_get_soap_action( options, env );
+            if (NULL == soap_act)
+            {
+              is_soap_act_set = AXIS2_FALSE;
+              soap_action = "/logOn";
+              soap_act = axutil_string_create(env, "/logOn");
+              axis2_options_set_soap_action(options, env, soap_act);    
+            }
+
+            
+            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
+             
+            ret_node =  axis2_svc_client_send_receive_with_op_qname( svc_client, env, op_qname, payload);
+ 
+            if (!is_soap_act_set)
+            {
+              
+              axis2_options_set_soap_action(options, env, NULL);    
+              
+              axis2_options_set_action( options, env, NULL);
+            }
+            if(soap_act)
+            {
+              axutil_string_free(soap_act, env);
+            }
+
+            
+            if (axis2_svc_client_get_last_response_has_fault (svc_client, env) && fault)
+            {
+                /* so it is a fault, will try to create soap elements */
+                axiom_soap_envelope_t *soap_envelope = NULL;
+                axiom_soap_body_t *soap_body = NULL;
+                axiom_soap_fault_t *soap_fault = NULL;
+ 
+                soap_envelope = axis2_svc_client_get_last_response_soap_envelope (svc_client, env);
+                if (soap_envelope)
+                {
+                    soap_body = axiom_soap_envelope_get_body (soap_envelope, env);
+                }
+                if (soap_body)
+                {
+                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
+                }
+                if (soap_fault)
+                {
+                    axis2_char_t *soap_reason_text = NULL;
+                    axiom_node_t *soap_fault_base_node = NULL;
+
+                    soap_fault_base_node = axiom_soap_fault_get_base_node(soap_fault, env);
+
+                    if (soap_fault_base_node)
+                    {
+                        axiom_node_t *current_node = NULL;
+                        axis2_char_t *current_local_name = NULL;
+                        axiom_element_t *current_element = NULL;
+                        axis2_bool_t next_sibling = AXIS2_FALSE;
+
+                        current_node = axiom_node_get_first_child(soap_fault_base_node, env);
+
+                        while(axutil_strcmp(current_local_name, "faultstring"))
+                        {
+                            while(current_node && axiom_node_get_node_type(current_node, env) != AXIOM_ELEMENT || next_sibling == AXIS2_TRUE)
+                            {
+                                current_node = axiom_node_get_next_sibling(current_node, env);
+                                next_sibling = AXIS2_FALSE;
+                            }
+                            current_element = (axiom_element_t*)axiom_node_get_data_element(current_node, env);
+                            current_local_name = axiom_element_get_localname(current_element, env);
+                            next_sibling = AXIS2_TRUE;
+                        }
+
+                        if(current_element)
+                        {
+                            soap_reason_text = axiom_element_get_text(current_element, env, current_node);
+                        }
+                    }
+
+                    axiom_soap_fault_detail_t *soap_detail = NULL;
+                    axiom_node_t *soap_detail_node = NULL;
+
+                    soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
+
+                    if(soap_detail) 
+                    {
+                        axiom_node_t *soap_detail_base_node = NULL;
+                        soap_detail_base_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);
+
+                        if(soap_detail_base_node)
+                        {
+                            soap_detail_node = axiom_node_get_first_child(soap_detail_base_node, env);
+                            /* somehow get an element node */
+                            while(soap_detail_node && axiom_node_get_node_type(soap_detail_node, env) != AXIOM_ELEMENT)
+                            {
+                                soap_detail_node = axiom_node_get_next_sibling(soap_detail_node, env);
+                            }
+                        }
+                    }
+                    if(soap_detail_node) 
+                    {
+                        axis2_char_t *detail_local_name = NULL;
+                        axiom_element_t *soap_detail_ele = NULL;
+                        
+                        soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
+                       
+                        if(soap_detail_ele)
+                        {
+                            detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
+                        }
+
+                        if(!detail_local_name)
+                        {
+                            AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                        }
+            
+                        else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
+                        {
+                            adb_internalServerErrorFault_t* adb_obj = NULL;
+
+                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
+                            
+                            adb_obj = adb_internalServerErrorFault_create(env);
+                            if(adb_obj)
+                            {
+                                if(soap_reason_text)
+                                {
+                                    adb_internalServerErrorFaultType_t *faultType = adb_internalServerErrorFaultType_create_with_values(env, soap_reason_text);
+                                    if(faultType)
+                                    {
+                                        adb_internalServerErrorFault_set_internalServerErrorFault(adb_obj, env, faultType);
+                                    }
+                                    else {
+                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                    }
+                                }
+                                else if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                {
+                                    adb_internalServerErrorFault_free(adb_obj, env);
+                                }
+                               
+                                fault->InternalServerErrorFault = adb_obj;
+                            }
+                            else {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                            }
+                        }
+            
+                        else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
+                        {
+                            adb_invalidOperationFault_t* adb_obj = NULL;
+
+                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
+                            
+                            adb_obj = adb_invalidOperationFault_create(env);
+                            if(adb_obj)
+                            {
+                                if(soap_reason_text)
+                                {
+                                    adb_invalidOperationFaultType_t *faultType = adb_invalidOperationFaultType_create_with_values(env, soap_reason_text);
+                                    if(faultType)
+                                    {
+                                        adb_invalidOperationFault_set_invalidOperationFault(adb_obj, env, faultType);
+                                    }
+                                    else {
+                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                    }
+                                }
+                                else if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                {
+                                    adb_invalidOperationFault_free(adb_obj, env);
+                                }
+                               
+                                fault->InvalidOperationFault = adb_obj;
+                            }
+                            else {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                            }
+                        }
+            
+                    }
+                }
+                AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+                return (axis2_bool_t)NULL;
+             }
+            
+                    if ( NULL == ret_node )
+                    {
+                        AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+                        return (axis2_bool_t)NULL;
+                    }
+                    ret_val = adb_logOnResponse_create(env);
+
+                    if(adb_logOnResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                    {
+                        if(ret_val != NULL)
+                        {
+                            adb_logOnResponse_free(ret_val, env);
+                        }
+
+                        AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the adb_logOnResponse_deserialize: "
+                                                                "This should be due to an invalid XML");
+                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_SUCH_ELEMENT, AXIS2_FAILURE);
+                        return (axis2_bool_t)NULL;
+                    }
+
+                   
+                            return adb_logOnResponse_free_popping_value(ret_val, env);
+                       
+        }
+        
+         /**
+          * auto generated method signature
           * for "setBookmarks|http://www.daisy.org/ns/daisy-online/" operation.
           * @param stub The stub (axis2_stub_t)
           * @param env environment ( mandatory)
@@ -2454,268 +2716,6 @@
 
                    
                             return adb_setBookmarksResponse_free_popping_value(ret_val, env);
-                       
-        }
-        
-         /**
-          * auto generated method signature
-          * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
-          * @param stub The stub (axis2_stub_t)
-          * @param env environment ( mandatory)
-          * @param _username of the axis2_char_t*
-          * @param _password of the axis2_char_t*
-          *
-          * @return axis2_bool_t
-          */
-
-         axis2_bool_t AXIS2_CALL 
-         axis2_stub_op_Kolibre_DaisyOnline_logOn( axis2_stub_t *stub, const axutil_env_t *env,
-                                               axis2_char_t* _username,
-                                               axis2_char_t* _password,
-                                          axis2_stub_Kolibre_DaisyOnline_logOn_fault *fault)
-         {
-            axis2_svc_client_t *svc_client = NULL;
-            axis2_options_t *options = NULL;
-            axiom_node_t *ret_node = NULL;
-
-            const axis2_char_t *soap_action = NULL;
-            axutil_qname_t *op_qname =  NULL;
-            axiom_node_t *payload = NULL;
-            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
-            axutil_string_t *soap_act = NULL;
-
-            adb_logOnResponse_t* ret_val;
-            
-                            {
-                               adb_logOn_t* wrapper_adb_obj = adb_logOn_create_with_values(env,
-                                        _username,
-                                        _password);
-                                    payload = adb_logOn_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
-                                    if (wrapper_adb_obj)
-                                    {
-                                        adb_logOn_free(wrapper_adb_obj, env);
-                                    }
-                            }
-                           
-            svc_client = axis2_stub_get_svc_client(stub, env );
-            
-           
-            
-            
-
-            options = axis2_stub_get_options( stub, env);
-            if (NULL == options)
-            {
-                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "options is null in stub");
-                return (axis2_bool_t)NULL;
-            }
-            soap_act = axis2_options_get_soap_action( options, env );
-            if (NULL == soap_act)
-            {
-              is_soap_act_set = AXIS2_FALSE;
-              soap_action = "/logOn";
-              soap_act = axutil_string_create(env, "/logOn");
-              axis2_options_set_soap_action(options, env, soap_act);    
-            }
-
-            
-            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
-             
-            ret_node =  axis2_svc_client_send_receive_with_op_qname( svc_client, env, op_qname, payload);
- 
-            if (!is_soap_act_set)
-            {
-              
-              axis2_options_set_soap_action(options, env, NULL);    
-              
-              axis2_options_set_action( options, env, NULL);
-            }
-            if(soap_act)
-            {
-              axutil_string_free(soap_act, env);
-            }
-
-            
-            if (axis2_svc_client_get_last_response_has_fault (svc_client, env) && fault)
-            {
-                /* so it is a fault, will try to create soap elements */
-                axiom_soap_envelope_t *soap_envelope = NULL;
-                axiom_soap_body_t *soap_body = NULL;
-                axiom_soap_fault_t *soap_fault = NULL;
- 
-                soap_envelope = axis2_svc_client_get_last_response_soap_envelope (svc_client, env);
-                if (soap_envelope)
-                {
-                    soap_body = axiom_soap_envelope_get_body (soap_envelope, env);
-                }
-                if (soap_body)
-                {
-                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
-                }
-                if (soap_fault)
-                {
-                    axis2_char_t *soap_reason_text = NULL;
-                    axiom_node_t *soap_fault_base_node = NULL;
-
-                    soap_fault_base_node = axiom_soap_fault_get_base_node(soap_fault, env);
-
-                    if (soap_fault_base_node)
-                    {
-                        axiom_node_t *current_node = NULL;
-                        axis2_char_t *current_local_name = NULL;
-                        axiom_element_t *current_element = NULL;
-                        axis2_bool_t next_sibling = AXIS2_FALSE;
-
-                        current_node = axiom_node_get_first_child(soap_fault_base_node, env);
-
-                        while(axutil_strcmp(current_local_name, "faultstring"))
-                        {
-                            while(current_node && axiom_node_get_node_type(current_node, env) != AXIOM_ELEMENT || next_sibling == AXIS2_TRUE)
-                            {
-                                current_node = axiom_node_get_next_sibling(current_node, env);
-                                next_sibling = AXIS2_FALSE;
-                            }
-                            current_element = (axiom_element_t*)axiom_node_get_data_element(current_node, env);
-                            current_local_name = axiom_element_get_localname(current_element, env);
-                            next_sibling = AXIS2_TRUE;
-                        }
-
-                        if(current_element)
-                        {
-                            soap_reason_text = axiom_element_get_text(current_element, env, current_node);
-                        }
-                    }
-
-                    axiom_soap_fault_detail_t *soap_detail = NULL;
-                    axiom_node_t *soap_detail_node = NULL;
-
-                    soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
-
-                    if(soap_detail) 
-                    {
-                        axiom_node_t *soap_detail_base_node = NULL;
-                        soap_detail_base_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);
-
-                        if(soap_detail_base_node)
-                        {
-                            soap_detail_node = axiom_node_get_first_child(soap_detail_base_node, env);
-                            /* somehow get an element node */
-                            while(soap_detail_node && axiom_node_get_node_type(soap_detail_node, env) != AXIOM_ELEMENT)
-                            {
-                                soap_detail_node = axiom_node_get_next_sibling(soap_detail_node, env);
-                            }
-                        }
-                    }
-                    if(soap_detail_node) 
-                    {
-                        axis2_char_t *detail_local_name = NULL;
-                        axiom_element_t *soap_detail_ele = NULL;
-                        
-                        soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
-                       
-                        if(soap_detail_ele)
-                        {
-                            detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
-                        }
-
-                        if(!detail_local_name)
-                        {
-                            AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                        }
-            
-                        else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
-                        {
-                            adb_internalServerErrorFault_t* adb_obj = NULL;
-
-                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
-                            
-                            adb_obj = adb_internalServerErrorFault_create(env);
-                            if(adb_obj)
-                            {
-                                if(soap_reason_text)
-                                {
-                                    adb_internalServerErrorFaultType_t *faultType = adb_internalServerErrorFaultType_create_with_values(env, soap_reason_text);
-                                    if(faultType)
-                                    {
-                                        adb_internalServerErrorFault_set_internalServerErrorFault(adb_obj, env, faultType);
-                                    }
-                                    else {
-                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                    }
-                                }
-                                else if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                {
-                                    adb_internalServerErrorFault_free(adb_obj, env);
-                                }
-                               
-                                fault->InternalServerErrorFault = adb_obj;
-                            }
-                            else {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                            }
-                        }
-            
-                        else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
-                        {
-                            adb_invalidOperationFault_t* adb_obj = NULL;
-
-                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
-                            
-                            adb_obj = adb_invalidOperationFault_create(env);
-                            if(adb_obj)
-                            {
-                                if(soap_reason_text)
-                                {
-                                    adb_invalidOperationFaultType_t *faultType = adb_invalidOperationFaultType_create_with_values(env, soap_reason_text);
-                                    if(faultType)
-                                    {
-                                        adb_invalidOperationFault_set_invalidOperationFault(adb_obj, env, faultType);
-                                    }
-                                    else {
-                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                    }
-                                }
-                                else if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                {
-                                    adb_invalidOperationFault_free(adb_obj, env);
-                                }
-                               
-                                fault->InvalidOperationFault = adb_obj;
-                            }
-                            else {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                            }
-                        }
-            
-                    }
-                }
-                AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
-                return (axis2_bool_t)NULL;
-             }
-            
-                    if ( NULL == ret_node )
-                    {
-                        AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
-                        return (axis2_bool_t)NULL;
-                    }
-                    ret_val = adb_logOnResponse_create(env);
-
-                    if(adb_logOnResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                    {
-                        if(ret_val != NULL)
-                        {
-                            adb_logOnResponse_free(ret_val, env);
-                        }
-
-                        AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the adb_logOnResponse_deserialize: "
-                                                                "This should be due to an invalid XML");
-                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_SUCH_ELEMENT, AXIS2_FAILURE);
-                        return (axis2_bool_t)NULL;
-                    }
-
-                   
-                            return adb_logOnResponse_free_popping_value(ret_val, env);
                        
         }
         
@@ -3728,6 +3728,262 @@
         
          /**
           * auto generated method signature
+          * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
+          * @param stub The stub (axis2_stub_t)
+          * @param env environment ( mandatory)
+          *
+          * @return axis2_bool_t
+          */
+
+         axis2_bool_t AXIS2_CALL 
+         axis2_stub_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
+                                          axis2_stub_Kolibre_DaisyOnline_logOff_fault *fault)
+         {
+            axis2_svc_client_t *svc_client = NULL;
+            axis2_options_t *options = NULL;
+            axiom_node_t *ret_node = NULL;
+
+            const axis2_char_t *soap_action = NULL;
+            axutil_qname_t *op_qname =  NULL;
+            axiom_node_t *payload = NULL;
+            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
+            axutil_string_t *soap_act = NULL;
+
+            adb_logOffResponse_t* ret_val;
+            
+                            {
+                               adb_logOff_t* wrapper_adb_obj = adb_logOff_create_with_values(env);
+                                    payload = adb_logOff_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
+                                    if (wrapper_adb_obj)
+                                    {
+                                        adb_logOff_free(wrapper_adb_obj, env);
+                                    }
+                            }
+                           
+            svc_client = axis2_stub_get_svc_client(stub, env );
+            
+           
+            
+            
+
+            options = axis2_stub_get_options( stub, env);
+            if (NULL == options)
+            {
+                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "options is null in stub");
+                return (axis2_bool_t)NULL;
+            }
+            soap_act = axis2_options_get_soap_action( options, env );
+            if (NULL == soap_act)
+            {
+              is_soap_act_set = AXIS2_FALSE;
+              soap_action = "/logOff";
+              soap_act = axutil_string_create(env, "/logOff");
+              axis2_options_set_soap_action(options, env, soap_act);    
+            }
+
+            
+            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
+             
+            ret_node =  axis2_svc_client_send_receive_with_op_qname( svc_client, env, op_qname, payload);
+ 
+            if (!is_soap_act_set)
+            {
+              
+              axis2_options_set_soap_action(options, env, NULL);    
+              
+              axis2_options_set_action( options, env, NULL);
+            }
+            if(soap_act)
+            {
+              axutil_string_free(soap_act, env);
+            }
+
+            
+            if (axis2_svc_client_get_last_response_has_fault (svc_client, env) && fault)
+            {
+                /* so it is a fault, will try to create soap elements */
+                axiom_soap_envelope_t *soap_envelope = NULL;
+                axiom_soap_body_t *soap_body = NULL;
+                axiom_soap_fault_t *soap_fault = NULL;
+ 
+                soap_envelope = axis2_svc_client_get_last_response_soap_envelope (svc_client, env);
+                if (soap_envelope)
+                {
+                    soap_body = axiom_soap_envelope_get_body (soap_envelope, env);
+                }
+                if (soap_body)
+                {
+                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
+                }
+                if (soap_fault)
+                {
+                    axis2_char_t *soap_reason_text = NULL;
+                    axiom_node_t *soap_fault_base_node = NULL;
+
+                    soap_fault_base_node = axiom_soap_fault_get_base_node(soap_fault, env);
+
+                    if (soap_fault_base_node)
+                    {
+                        axiom_node_t *current_node = NULL;
+                        axis2_char_t *current_local_name = NULL;
+                        axiom_element_t *current_element = NULL;
+                        axis2_bool_t next_sibling = AXIS2_FALSE;
+
+                        current_node = axiom_node_get_first_child(soap_fault_base_node, env);
+
+                        while(axutil_strcmp(current_local_name, "faultstring"))
+                        {
+                            while(current_node && axiom_node_get_node_type(current_node, env) != AXIOM_ELEMENT || next_sibling == AXIS2_TRUE)
+                            {
+                                current_node = axiom_node_get_next_sibling(current_node, env);
+                                next_sibling = AXIS2_FALSE;
+                            }
+                            current_element = (axiom_element_t*)axiom_node_get_data_element(current_node, env);
+                            current_local_name = axiom_element_get_localname(current_element, env);
+                            next_sibling = AXIS2_TRUE;
+                        }
+
+                        if(current_element)
+                        {
+                            soap_reason_text = axiom_element_get_text(current_element, env, current_node);
+                        }
+                    }
+
+                    axiom_soap_fault_detail_t *soap_detail = NULL;
+                    axiom_node_t *soap_detail_node = NULL;
+
+                    soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
+
+                    if(soap_detail) 
+                    {
+                        axiom_node_t *soap_detail_base_node = NULL;
+                        soap_detail_base_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);
+
+                        if(soap_detail_base_node)
+                        {
+                            soap_detail_node = axiom_node_get_first_child(soap_detail_base_node, env);
+                            /* somehow get an element node */
+                            while(soap_detail_node && axiom_node_get_node_type(soap_detail_node, env) != AXIOM_ELEMENT)
+                            {
+                                soap_detail_node = axiom_node_get_next_sibling(soap_detail_node, env);
+                            }
+                        }
+                    }
+                    if(soap_detail_node) 
+                    {
+                        axis2_char_t *detail_local_name = NULL;
+                        axiom_element_t *soap_detail_ele = NULL;
+                        
+                        soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
+                       
+                        if(soap_detail_ele)
+                        {
+                            detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
+                        }
+
+                        if(!detail_local_name)
+                        {
+                            AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                        }
+            
+                        else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
+                        {
+                            adb_invalidOperationFault_t* adb_obj = NULL;
+
+                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
+                            
+                            adb_obj = adb_invalidOperationFault_create(env);
+                            if(adb_obj)
+                            {
+                                if(soap_reason_text)
+                                {
+                                    adb_invalidOperationFaultType_t *faultType = adb_invalidOperationFaultType_create_with_values(env, soap_reason_text);
+                                    if(faultType)
+                                    {
+                                        adb_invalidOperationFault_set_invalidOperationFault(adb_obj, env, faultType);
+                                    }
+                                    else {
+                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                    }
+                                }
+                                else if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                {
+                                    adb_invalidOperationFault_free(adb_obj, env);
+                                }
+                               
+                                fault->InvalidOperationFault = adb_obj;
+                            }
+                            else {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                            }
+                        }
+            
+                        else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
+                        {
+                            adb_internalServerErrorFault_t* adb_obj = NULL;
+
+                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
+                            
+                            adb_obj = adb_internalServerErrorFault_create(env);
+                            if(adb_obj)
+                            {
+                                if(soap_reason_text)
+                                {
+                                    adb_internalServerErrorFaultType_t *faultType = adb_internalServerErrorFaultType_create_with_values(env, soap_reason_text);
+                                    if(faultType)
+                                    {
+                                        adb_internalServerErrorFault_set_internalServerErrorFault(adb_obj, env, faultType);
+                                    }
+                                    else {
+                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                    }
+                                }
+                                else if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                {
+                                    adb_internalServerErrorFault_free(adb_obj, env);
+                                }
+                               
+                                fault->InternalServerErrorFault = adb_obj;
+                            }
+                            else {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                            }
+                        }
+            
+                    }
+                }
+                AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+                return (axis2_bool_t)NULL;
+             }
+            
+                    if ( NULL == ret_node )
+                    {
+                        AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
+                        return (axis2_bool_t)NULL;
+                    }
+                    ret_val = adb_logOffResponse_create(env);
+
+                    if(adb_logOffResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                    {
+                        if(ret_val != NULL)
+                        {
+                            adb_logOffResponse_free(ret_val, env);
+                        }
+
+                        AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the adb_logOffResponse_deserialize: "
+                                                                "This should be due to an invalid XML");
+                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_SUCH_ELEMENT, AXIS2_FAILURE);
+                        return (axis2_bool_t)NULL;
+                    }
+
+                   
+                            return adb_logOffResponse_free_popping_value(ret_val, env);
+                       
+        }
+        
+         /**
+          * auto generated method signature
           * for "setReadingSystemAttributes|http://www.daisy.org/ns/daisy-online/" operation.
           * @param stub The stub (axis2_stub_t)
           * @param env environment ( mandatory)
@@ -4046,262 +4302,6 @@
 
                    
                             return adb_setReadingSystemAttributesResponse_free_popping_value(ret_val, env);
-                       
-        }
-        
-         /**
-          * auto generated method signature
-          * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
-          * @param stub The stub (axis2_stub_t)
-          * @param env environment ( mandatory)
-          *
-          * @return axis2_bool_t
-          */
-
-         axis2_bool_t AXIS2_CALL 
-         axis2_stub_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
-                                          axis2_stub_Kolibre_DaisyOnline_logOff_fault *fault)
-         {
-            axis2_svc_client_t *svc_client = NULL;
-            axis2_options_t *options = NULL;
-            axiom_node_t *ret_node = NULL;
-
-            const axis2_char_t *soap_action = NULL;
-            axutil_qname_t *op_qname =  NULL;
-            axiom_node_t *payload = NULL;
-            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
-            axutil_string_t *soap_act = NULL;
-
-            adb_logOffResponse_t* ret_val;
-            
-                            {
-                               adb_logOff_t* wrapper_adb_obj = adb_logOff_create_with_values(env);
-                                    payload = adb_logOff_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
-                                    if (wrapper_adb_obj)
-                                    {
-                                        adb_logOff_free(wrapper_adb_obj, env);
-                                    }
-                            }
-                           
-            svc_client = axis2_stub_get_svc_client(stub, env );
-            
-           
-            
-            
-
-            options = axis2_stub_get_options( stub, env);
-            if (NULL == options)
-            {
-                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                AXIS2_LOG_ERROR(env->log, AXIS2_LOG_SI, "options is null in stub");
-                return (axis2_bool_t)NULL;
-            }
-            soap_act = axis2_options_get_soap_action( options, env );
-            if (NULL == soap_act)
-            {
-              is_soap_act_set = AXIS2_FALSE;
-              soap_action = "/logOff";
-              soap_act = axutil_string_create(env, "/logOff");
-              axis2_options_set_soap_action(options, env, soap_act);    
-            }
-
-            
-            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
-             
-            ret_node =  axis2_svc_client_send_receive_with_op_qname( svc_client, env, op_qname, payload);
- 
-            if (!is_soap_act_set)
-            {
-              
-              axis2_options_set_soap_action(options, env, NULL);    
-              
-              axis2_options_set_action( options, env, NULL);
-            }
-            if(soap_act)
-            {
-              axutil_string_free(soap_act, env);
-            }
-
-            
-            if (axis2_svc_client_get_last_response_has_fault (svc_client, env) && fault)
-            {
-                /* so it is a fault, will try to create soap elements */
-                axiom_soap_envelope_t *soap_envelope = NULL;
-                axiom_soap_body_t *soap_body = NULL;
-                axiom_soap_fault_t *soap_fault = NULL;
- 
-                soap_envelope = axis2_svc_client_get_last_response_soap_envelope (svc_client, env);
-                if (soap_envelope)
-                {
-                    soap_body = axiom_soap_envelope_get_body (soap_envelope, env);
-                }
-                if (soap_body)
-                {
-                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
-                }
-                if (soap_fault)
-                {
-                    axis2_char_t *soap_reason_text = NULL;
-                    axiom_node_t *soap_fault_base_node = NULL;
-
-                    soap_fault_base_node = axiom_soap_fault_get_base_node(soap_fault, env);
-
-                    if (soap_fault_base_node)
-                    {
-                        axiom_node_t *current_node = NULL;
-                        axis2_char_t *current_local_name = NULL;
-                        axiom_element_t *current_element = NULL;
-                        axis2_bool_t next_sibling = AXIS2_FALSE;
-
-                        current_node = axiom_node_get_first_child(soap_fault_base_node, env);
-
-                        while(axutil_strcmp(current_local_name, "faultstring"))
-                        {
-                            while(current_node && axiom_node_get_node_type(current_node, env) != AXIOM_ELEMENT || next_sibling == AXIS2_TRUE)
-                            {
-                                current_node = axiom_node_get_next_sibling(current_node, env);
-                                next_sibling = AXIS2_FALSE;
-                            }
-                            current_element = (axiom_element_t*)axiom_node_get_data_element(current_node, env);
-                            current_local_name = axiom_element_get_localname(current_element, env);
-                            next_sibling = AXIS2_TRUE;
-                        }
-
-                        if(current_element)
-                        {
-                            soap_reason_text = axiom_element_get_text(current_element, env, current_node);
-                        }
-                    }
-
-                    axiom_soap_fault_detail_t *soap_detail = NULL;
-                    axiom_node_t *soap_detail_node = NULL;
-
-                    soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
-
-                    if(soap_detail) 
-                    {
-                        axiom_node_t *soap_detail_base_node = NULL;
-                        soap_detail_base_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);
-
-                        if(soap_detail_base_node)
-                        {
-                            soap_detail_node = axiom_node_get_first_child(soap_detail_base_node, env);
-                            /* somehow get an element node */
-                            while(soap_detail_node && axiom_node_get_node_type(soap_detail_node, env) != AXIOM_ELEMENT)
-                            {
-                                soap_detail_node = axiom_node_get_next_sibling(soap_detail_node, env);
-                            }
-                        }
-                    }
-                    if(soap_detail_node) 
-                    {
-                        axis2_char_t *detail_local_name = NULL;
-                        axiom_element_t *soap_detail_ele = NULL;
-                        
-                        soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
-                       
-                        if(soap_detail_ele)
-                        {
-                            detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
-                        }
-
-                        if(!detail_local_name)
-                        {
-                            AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                        }
-            
-                        else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
-                        {
-                            adb_invalidOperationFault_t* adb_obj = NULL;
-
-                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
-                            
-                            adb_obj = adb_invalidOperationFault_create(env);
-                            if(adb_obj)
-                            {
-                                if(soap_reason_text)
-                                {
-                                    adb_invalidOperationFaultType_t *faultType = adb_invalidOperationFaultType_create_with_values(env, soap_reason_text);
-                                    if(faultType)
-                                    {
-                                        adb_invalidOperationFault_set_invalidOperationFault(adb_obj, env, faultType);
-                                    }
-                                    else {
-                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                    }
-                                }
-                                else if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                {
-                                    adb_invalidOperationFault_free(adb_obj, env);
-                                }
-                               
-                                fault->InvalidOperationFault = adb_obj;
-                            }
-                            else {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                            }
-                        }
-            
-                        else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
-                        {
-                            adb_internalServerErrorFault_t* adb_obj = NULL;
-
-                            AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
-                            
-                            adb_obj = adb_internalServerErrorFault_create(env);
-                            if(adb_obj)
-                            {
-                                if(soap_reason_text)
-                                {
-                                    adb_internalServerErrorFaultType_t *faultType = adb_internalServerErrorFaultType_create_with_values(env, soap_reason_text);
-                                    if(faultType)
-                                    {
-                                        adb_internalServerErrorFault_set_internalServerErrorFault(adb_obj, env, faultType);
-                                    }
-                                    else {
-                                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                    }
-                                }
-                                else if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                {
-                                    adb_internalServerErrorFault_free(adb_obj, env);
-                                }
-                               
-                                fault->InternalServerErrorFault = adb_obj;
-                            }
-                            else {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                            }
-                        }
-            
-                    }
-                }
-                AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
-                return (axis2_bool_t)NULL;
-             }
-            
-                    if ( NULL == ret_node )
-                    {
-                        AXIS2_ERROR_SET(env->error, env->error->error_number, AXIS2_FAILURE);
-                        return (axis2_bool_t)NULL;
-                    }
-                    ret_val = adb_logOffResponse_create(env);
-
-                    if(adb_logOffResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                    {
-                        if(ret_val != NULL)
-                        {
-                            adb_logOffResponse_free(ret_val, env);
-                        }
-
-                        AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the adb_logOffResponse_deserialize: "
-                                                                "This should be due to an invalid XML");
-                        AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_SUCH_ELEMENT, AXIS2_FAILURE);
-                        return (axis2_bool_t)NULL;
-                    }
-
-                   
-                            return adb_logOffResponse_free_popping_value(ret_val, env);
                        
         }
         
@@ -7009,6 +7009,298 @@
 
          
 
+        struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data
+        {   
+            void *data;
+            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
+                                                        axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data);
+            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data);
+        };
+
+        static axis2_status_t AXIS2_CALL axis2_stub_on_error_Kolibre_DaisyOnline_logOn(axis2_callback_t *callback, const axutil_env_t *env, int exception)
+        {
+            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int, void *data);
+            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data* callback_data = NULL;
+
+            void *user_data = NULL;
+
+            axis2_status_t status;
+        
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*)axis2_callback_get_data(callback);
+        
+            user_data = callback_data->data;
+            on_error = callback_data->on_error;
+        
+            status = on_error(env, exception, user_data);
+
+            if(callback_data)
+            {
+                AXIS2_FREE(env->allocator, callback_data);
+            }
+            return status;
+        } 
+
+        axis2_status_t AXIS2_CALL axis2_stub_on_complete_Kolibre_DaisyOnline_logOn(axis2_callback_t *callback, const axutil_env_t *env)
+        {
+            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
+                                                       axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data);
+            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data* callback_data = NULL;
+            void *user_data = NULL;
+            axis2_status_t status = AXIS2_SUCCESS;
+            axis2_stub_Kolibre_DaisyOnline_logOn_fault fault;
+            adb_logOnResponse_t* ret_val;
+            
+
+            axiom_node_t *ret_node = NULL;
+            axiom_soap_envelope_t *soap_envelope = NULL;
+
+            
+
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*)axis2_callback_get_data(callback);
+
+            
+            soap_envelope = axis2_callback_get_envelope(callback, env);
+            if(soap_envelope)
+            {
+                axiom_soap_body_t *soap_body;
+                soap_body = axiom_soap_envelope_get_body(soap_envelope, env);
+                if(soap_body)
+                {
+                    axiom_soap_fault_t *soap_fault = NULL;
+                    axiom_node_t *body_node = axiom_soap_body_get_base_node(soap_body, env);
+
+                    
+                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
+                    if (soap_fault)
+                    {
+                        axiom_soap_fault_detail_t *soap_detail = NULL;
+                        axiom_node_t *soap_detail_node = NULL;
+
+                        soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
+
+                        if(soap_detail) 
+                        {
+                            soap_detail_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);    
+                        }
+                        if(soap_detail_node) 
+                        {
+                            axis2_char_t *detail_local_name = NULL;
+                            axiom_element_t *soap_detail_ele = NULL;
+                            
+                            if(axiom_node_get_node_type(soap_detail_node, env) == AXIOM_ELEMENT)
+                            {
+                                soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
+                            }
+                           
+                            if(soap_detail_ele)
+                            {
+                                detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
+                            }
+
+                            if(!detail_local_name)
+                            {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                            }
+                
+                            else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
+                            {
+                                adb_internalServerErrorFault_t* adb_obj = NULL;
+
+                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
+                                
+                                adb_obj = adb_internalServerErrorFault_create(env);
+                                if(adb_obj)
+                                {
+                                    if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                    {
+                                        adb_internalServerErrorFault_free(adb_obj, env);
+                                    }
+                                   
+                                    fault.InternalServerErrorFault = adb_obj;
+                                }
+                                else {
+                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                }
+                            }
+                
+                            else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
+                            {
+                                adb_invalidOperationFault_t* adb_obj = NULL;
+
+                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
+                                
+                                adb_obj = adb_invalidOperationFault_create(env);
+                                if(adb_obj)
+                                {
+                                    if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                    {
+                                        adb_invalidOperationFault_free(adb_obj, env);
+                                    }
+                                   
+                                    fault.InvalidOperationFault = adb_obj;
+                                }
+                                else {
+                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                }
+                            }
+                
+                        }
+                    }
+                    else   if(body_node)
+                    {
+                        ret_node = axiom_node_get_first_child(body_node, env);
+                    }
+                }
+                
+                
+            }
+
+            user_data = callback_data->data;
+            on_complete = callback_data->on_complete;
+
+            
+                    if(ret_node != NULL)
+                    {
+                        ret_val = adb_logOnResponse_create(env);
+     
+                        if(adb_logOnResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                        {
+                            AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the LendResponse_deserialize: "
+                                                                    "This should be due to an invalid XML");
+                            adb_logOnResponse_free(ret_val, env);
+                            ret_val = NULL;
+                        }
+                     }
+                     else
+                     {
+                         ret_val = NULL; 
+                     }
+
+                     
+                         if(ret_val == NULL) {
+                            status = on_complete(env, (axis2_bool_t)NULL, fault , user_data);
+                         }
+                         else {
+                            status = on_complete(env, adb_logOnResponse_free_popping_value(ret_val, env), fault , user_data);
+                         }
+                         
+ 
+            if(callback_data)
+            {
+                AXIS2_FREE(env->allocator, callback_data);
+            }
+            return status;
+        }
+
+        /**
+          * auto generated method signature for asynchronous invocations
+          * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
+          * @param stub The stub
+          * @param env environment ( mandatory)
+          * @param _username of the axis2_char_t*
+          * @param _password of the axis2_char_t*
+          * @param user_data user data to be accessed by the callbacks
+          * @param on_complete callback to handle on complete
+          * @param on_error callback to handle on error
+          */
+
+         void AXIS2_CALL
+         axis2_stub_start_op_Kolibre_DaisyOnline_logOn( axis2_stub_t *stub, const axutil_env_t *env,
+                                              axis2_char_t* _username,
+                                              axis2_char_t* _password,
+                                                  void *user_data,
+                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
+                                                      axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data) ,
+                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) )
+         {
+
+            axis2_callback_t *callback = NULL;
+
+            axis2_svc_client_t *svc_client = NULL;
+            axis2_options_t *options = NULL;
+
+            const axis2_char_t *soap_action = NULL;
+            axiom_node_t *payload = NULL;
+
+            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
+            axutil_string_t *soap_act = NULL;
+
+            
+            
+            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data *callback_data;
+
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*) AXIS2_MALLOC(env->allocator, 
+                                    sizeof(struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data));
+            if(NULL == callback_data)
+            {
+                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "Can not allocate memeory for the callback data structures");
+                return;
+            }
+            
+
+            
+                            {
+                               adb_logOn_t* wrapper_adb_obj = adb_logOn_create_with_values(env,
+                                    _username,
+                                    _password);
+                                payload = adb_logOn_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
+                            }
+                           
+
+
+            svc_client = axis2_stub_get_svc_client(stub, env );
+            
+           
+            
+            
+
+            options = axis2_stub_get_options( stub, env);
+            if (NULL == options)
+            {
+              AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+              AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "options is null in stub");
+              return;
+            }
+
+            soap_act =axis2_options_get_soap_action (options, env);
+            if (NULL == soap_act)
+            {
+              is_soap_act_set = AXIS2_FALSE;
+              soap_action = "/logOn";
+              soap_act = axutil_string_create(env, "/logOn");
+              axis2_options_set_soap_action(options, env, soap_act);
+            }
+            
+            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
+             
+
+            callback = axis2_callback_create(env);
+            /* Set our on_complete fucntion pointer to the callback object */
+            axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_logOn);
+            /* Set our on_error function pointer to the callback object */
+            axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_logOn);
+
+            callback_data-> data = user_data;
+            callback_data-> on_complete = on_complete;
+            callback_data-> on_error = on_error;
+
+            axis2_callback_set_data(callback, (void*)callback_data);
+
+            /* Send request */
+            axis2_svc_client_send_receive_non_blocking(svc_client, env, payload, callback);
+            
+            if (!is_soap_act_set)
+            {
+              
+              axis2_options_set_soap_action(options, env, NULL);
+              
+              axis2_options_set_action(options, env, NULL);
+            }
+         }
+
+         
+
         struct axis2_stub_Kolibre_DaisyOnline_setBookmarks_callback_data
         {   
             void *data;
@@ -7343,298 +7635,6 @@
             axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_setBookmarks);
             /* Set our on_error function pointer to the callback object */
             axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_setBookmarks);
-
-            callback_data-> data = user_data;
-            callback_data-> on_complete = on_complete;
-            callback_data-> on_error = on_error;
-
-            axis2_callback_set_data(callback, (void*)callback_data);
-
-            /* Send request */
-            axis2_svc_client_send_receive_non_blocking(svc_client, env, payload, callback);
-            
-            if (!is_soap_act_set)
-            {
-              
-              axis2_options_set_soap_action(options, env, NULL);
-              
-              axis2_options_set_action(options, env, NULL);
-            }
-         }
-
-         
-
-        struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data
-        {   
-            void *data;
-            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
-                                                        axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data);
-            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data);
-        };
-
-        static axis2_status_t AXIS2_CALL axis2_stub_on_error_Kolibre_DaisyOnline_logOn(axis2_callback_t *callback, const axutil_env_t *env, int exception)
-        {
-            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int, void *data);
-            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data* callback_data = NULL;
-
-            void *user_data = NULL;
-
-            axis2_status_t status;
-        
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*)axis2_callback_get_data(callback);
-        
-            user_data = callback_data->data;
-            on_error = callback_data->on_error;
-        
-            status = on_error(env, exception, user_data);
-
-            if(callback_data)
-            {
-                AXIS2_FREE(env->allocator, callback_data);
-            }
-            return status;
-        } 
-
-        axis2_status_t AXIS2_CALL axis2_stub_on_complete_Kolibre_DaisyOnline_logOn(axis2_callback_t *callback, const axutil_env_t *env)
-        {
-            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
-                                                       axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data);
-            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data* callback_data = NULL;
-            void *user_data = NULL;
-            axis2_status_t status = AXIS2_SUCCESS;
-            axis2_stub_Kolibre_DaisyOnline_logOn_fault fault;
-            adb_logOnResponse_t* ret_val;
-            
-
-            axiom_node_t *ret_node = NULL;
-            axiom_soap_envelope_t *soap_envelope = NULL;
-
-            
-
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*)axis2_callback_get_data(callback);
-
-            
-            soap_envelope = axis2_callback_get_envelope(callback, env);
-            if(soap_envelope)
-            {
-                axiom_soap_body_t *soap_body;
-                soap_body = axiom_soap_envelope_get_body(soap_envelope, env);
-                if(soap_body)
-                {
-                    axiom_soap_fault_t *soap_fault = NULL;
-                    axiom_node_t *body_node = axiom_soap_body_get_base_node(soap_body, env);
-
-                    
-                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
-                    if (soap_fault)
-                    {
-                        axiom_soap_fault_detail_t *soap_detail = NULL;
-                        axiom_node_t *soap_detail_node = NULL;
-
-                        soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
-
-                        if(soap_detail) 
-                        {
-                            soap_detail_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);    
-                        }
-                        if(soap_detail_node) 
-                        {
-                            axis2_char_t *detail_local_name = NULL;
-                            axiom_element_t *soap_detail_ele = NULL;
-                            
-                            if(axiom_node_get_node_type(soap_detail_node, env) == AXIOM_ELEMENT)
-                            {
-                                soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
-                            }
-                           
-                            if(soap_detail_ele)
-                            {
-                                detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
-                            }
-
-                            if(!detail_local_name)
-                            {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                            }
-                
-                            else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
-                            {
-                                adb_internalServerErrorFault_t* adb_obj = NULL;
-
-                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
-                                
-                                adb_obj = adb_internalServerErrorFault_create(env);
-                                if(adb_obj)
-                                {
-                                    if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                    {
-                                        adb_internalServerErrorFault_free(adb_obj, env);
-                                    }
-                                   
-                                    fault.InternalServerErrorFault = adb_obj;
-                                }
-                                else {
-                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                }
-                            }
-                
-                            else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
-                            {
-                                adb_invalidOperationFault_t* adb_obj = NULL;
-
-                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
-                                
-                                adb_obj = adb_invalidOperationFault_create(env);
-                                if(adb_obj)
-                                {
-                                    if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                    {
-                                        adb_invalidOperationFault_free(adb_obj, env);
-                                    }
-                                   
-                                    fault.InvalidOperationFault = adb_obj;
-                                }
-                                else {
-                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                }
-                            }
-                
-                        }
-                    }
-                    else   if(body_node)
-                    {
-                        ret_node = axiom_node_get_first_child(body_node, env);
-                    }
-                }
-                
-                
-            }
-
-            user_data = callback_data->data;
-            on_complete = callback_data->on_complete;
-
-            
-                    if(ret_node != NULL)
-                    {
-                        ret_val = adb_logOnResponse_create(env);
-     
-                        if(adb_logOnResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                        {
-                            AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the LendResponse_deserialize: "
-                                                                    "This should be due to an invalid XML");
-                            adb_logOnResponse_free(ret_val, env);
-                            ret_val = NULL;
-                        }
-                     }
-                     else
-                     {
-                         ret_val = NULL; 
-                     }
-
-                     
-                         if(ret_val == NULL) {
-                            status = on_complete(env, (axis2_bool_t)NULL, fault , user_data);
-                         }
-                         else {
-                            status = on_complete(env, adb_logOnResponse_free_popping_value(ret_val, env), fault , user_data);
-                         }
-                         
- 
-            if(callback_data)
-            {
-                AXIS2_FREE(env->allocator, callback_data);
-            }
-            return status;
-        }
-
-        /**
-          * auto generated method signature for asynchronous invocations
-          * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
-          * @param stub The stub
-          * @param env environment ( mandatory)
-          * @param _username of the axis2_char_t*
-          * @param _password of the axis2_char_t*
-          * @param user_data user data to be accessed by the callbacks
-          * @param on_complete callback to handle on complete
-          * @param on_error callback to handle on error
-          */
-
-         void AXIS2_CALL
-         axis2_stub_start_op_Kolibre_DaisyOnline_logOn( axis2_stub_t *stub, const axutil_env_t *env,
-                                              axis2_char_t* _username,
-                                              axis2_char_t* _password,
-                                                  void *user_data,
-                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
-                                                      axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data) ,
-                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) )
-         {
-
-            axis2_callback_t *callback = NULL;
-
-            axis2_svc_client_t *svc_client = NULL;
-            axis2_options_t *options = NULL;
-
-            const axis2_char_t *soap_action = NULL;
-            axiom_node_t *payload = NULL;
-
-            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
-            axutil_string_t *soap_act = NULL;
-
-            
-            
-            struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data *callback_data;
-
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data*) AXIS2_MALLOC(env->allocator, 
-                                    sizeof(struct axis2_stub_Kolibre_DaisyOnline_logOn_callback_data));
-            if(NULL == callback_data)
-            {
-                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "Can not allocate memeory for the callback data structures");
-                return;
-            }
-            
-
-            
-                            {
-                               adb_logOn_t* wrapper_adb_obj = adb_logOn_create_with_values(env,
-                                    _username,
-                                    _password);
-                                payload = adb_logOn_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
-                            }
-                           
-
-
-            svc_client = axis2_stub_get_svc_client(stub, env );
-            
-           
-            
-            
-
-            options = axis2_stub_get_options( stub, env);
-            if (NULL == options)
-            {
-              AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-              AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "options is null in stub");
-              return;
-            }
-
-            soap_act =axis2_options_get_soap_action (options, env);
-            if (NULL == soap_act)
-            {
-              is_soap_act_set = AXIS2_FALSE;
-              soap_action = "/logOn";
-              soap_act = axutil_string_create(env, "/logOn");
-              axis2_options_set_soap_action(options, env, soap_act);
-            }
-            
-            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
-             
-
-            callback = axis2_callback_create(env);
-            /* Set our on_complete fucntion pointer to the callback object */
-            axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_logOn);
-            /* Set our on_error function pointer to the callback object */
-            axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_logOn);
 
             callback_data-> data = user_data;
             callback_data-> on_complete = on_complete;
@@ -8676,6 +8676,292 @@
 
          
 
+        struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data
+        {   
+            void *data;
+            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
+                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data);
+            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data);
+        };
+
+        static axis2_status_t AXIS2_CALL axis2_stub_on_error_Kolibre_DaisyOnline_logOff(axis2_callback_t *callback, const axutil_env_t *env, int exception)
+        {
+            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int, void *data);
+            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data* callback_data = NULL;
+
+            void *user_data = NULL;
+
+            axis2_status_t status;
+        
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*)axis2_callback_get_data(callback);
+        
+            user_data = callback_data->data;
+            on_error = callback_data->on_error;
+        
+            status = on_error(env, exception, user_data);
+
+            if(callback_data)
+            {
+                AXIS2_FREE(env->allocator, callback_data);
+            }
+            return status;
+        } 
+
+        axis2_status_t AXIS2_CALL axis2_stub_on_complete_Kolibre_DaisyOnline_logOff(axis2_callback_t *callback, const axutil_env_t *env)
+        {
+            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
+                                                       axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data);
+            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data* callback_data = NULL;
+            void *user_data = NULL;
+            axis2_status_t status = AXIS2_SUCCESS;
+            axis2_stub_Kolibre_DaisyOnline_logOff_fault fault;
+            adb_logOffResponse_t* ret_val;
+            
+
+            axiom_node_t *ret_node = NULL;
+            axiom_soap_envelope_t *soap_envelope = NULL;
+
+            
+
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*)axis2_callback_get_data(callback);
+
+            
+            soap_envelope = axis2_callback_get_envelope(callback, env);
+            if(soap_envelope)
+            {
+                axiom_soap_body_t *soap_body;
+                soap_body = axiom_soap_envelope_get_body(soap_envelope, env);
+                if(soap_body)
+                {
+                    axiom_soap_fault_t *soap_fault = NULL;
+                    axiom_node_t *body_node = axiom_soap_body_get_base_node(soap_body, env);
+
+                    
+                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
+                    if (soap_fault)
+                    {
+                        axiom_soap_fault_detail_t *soap_detail = NULL;
+                        axiom_node_t *soap_detail_node = NULL;
+
+                        soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
+
+                        if(soap_detail) 
+                        {
+                            soap_detail_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);    
+                        }
+                        if(soap_detail_node) 
+                        {
+                            axis2_char_t *detail_local_name = NULL;
+                            axiom_element_t *soap_detail_ele = NULL;
+                            
+                            if(axiom_node_get_node_type(soap_detail_node, env) == AXIOM_ELEMENT)
+                            {
+                                soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
+                            }
+                           
+                            if(soap_detail_ele)
+                            {
+                                detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
+                            }
+
+                            if(!detail_local_name)
+                            {
+                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+                            }
+                
+                            else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
+                            {
+                                adb_invalidOperationFault_t* adb_obj = NULL;
+
+                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
+                                
+                                adb_obj = adb_invalidOperationFault_create(env);
+                                if(adb_obj)
+                                {
+                                    if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                    {
+                                        adb_invalidOperationFault_free(adb_obj, env);
+                                    }
+                                   
+                                    fault.InvalidOperationFault = adb_obj;
+                                }
+                                else {
+                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                }
+                            }
+                
+                            else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
+                            {
+                                adb_internalServerErrorFault_t* adb_obj = NULL;
+
+                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
+                                
+                                adb_obj = adb_internalServerErrorFault_create(env);
+                                if(adb_obj)
+                                {
+                                    if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                                    {
+                                        adb_internalServerErrorFault_free(adb_obj, env);
+                                    }
+                                   
+                                    fault.InternalServerErrorFault = adb_obj;
+                                }
+                                else {
+                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                                }
+                            }
+                
+                        }
+                    }
+                    else   if(body_node)
+                    {
+                        ret_node = axiom_node_get_first_child(body_node, env);
+                    }
+                }
+                
+                
+            }
+
+            user_data = callback_data->data;
+            on_complete = callback_data->on_complete;
+
+            
+                    if(ret_node != NULL)
+                    {
+                        ret_val = adb_logOffResponse_create(env);
+     
+                        if(adb_logOffResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
+                        {
+                            AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the LendResponse_deserialize: "
+                                                                    "This should be due to an invalid XML");
+                            adb_logOffResponse_free(ret_val, env);
+                            ret_val = NULL;
+                        }
+                     }
+                     else
+                     {
+                         ret_val = NULL; 
+                     }
+
+                     
+                         if(ret_val == NULL) {
+                            status = on_complete(env, (axis2_bool_t)NULL, fault , user_data);
+                         }
+                         else {
+                            status = on_complete(env, adb_logOffResponse_free_popping_value(ret_val, env), fault , user_data);
+                         }
+                         
+ 
+            if(callback_data)
+            {
+                AXIS2_FREE(env->allocator, callback_data);
+            }
+            return status;
+        }
+
+        /**
+          * auto generated method signature for asynchronous invocations
+          * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
+          * @param stub The stub
+          * @param env environment ( mandatory)
+          * @param user_data user data to be accessed by the callbacks
+          * @param on_complete callback to handle on complete
+          * @param on_error callback to handle on error
+          */
+
+         void AXIS2_CALL
+         axis2_stub_start_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
+                                                  void *user_data,
+                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
+                                                      axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data) ,
+                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) )
+         {
+
+            axis2_callback_t *callback = NULL;
+
+            axis2_svc_client_t *svc_client = NULL;
+            axis2_options_t *options = NULL;
+
+            const axis2_char_t *soap_action = NULL;
+            axiom_node_t *payload = NULL;
+
+            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
+            axutil_string_t *soap_act = NULL;
+
+            
+            
+            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data *callback_data;
+
+            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*) AXIS2_MALLOC(env->allocator, 
+                                    sizeof(struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data));
+            if(NULL == callback_data)
+            {
+                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
+                AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "Can not allocate memeory for the callback data structures");
+                return;
+            }
+            
+
+            
+                            {
+                               adb_logOff_t* wrapper_adb_obj = adb_logOff_create_with_values(env);
+                                payload = adb_logOff_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
+                            }
+                           
+
+
+            svc_client = axis2_stub_get_svc_client(stub, env );
+            
+           
+            
+            
+
+            options = axis2_stub_get_options( stub, env);
+            if (NULL == options)
+            {
+              AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
+              AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "options is null in stub");
+              return;
+            }
+
+            soap_act =axis2_options_get_soap_action (options, env);
+            if (NULL == soap_act)
+            {
+              is_soap_act_set = AXIS2_FALSE;
+              soap_action = "/logOff";
+              soap_act = axutil_string_create(env, "/logOff");
+              axis2_options_set_soap_action(options, env, soap_act);
+            }
+            
+            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
+             
+
+            callback = axis2_callback_create(env);
+            /* Set our on_complete fucntion pointer to the callback object */
+            axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_logOff);
+            /* Set our on_error function pointer to the callback object */
+            axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_logOff);
+
+            callback_data-> data = user_data;
+            callback_data-> on_complete = on_complete;
+            callback_data-> on_error = on_error;
+
+            axis2_callback_set_data(callback, (void*)callback_data);
+
+            /* Send request */
+            axis2_svc_client_send_receive_non_blocking(svc_client, env, payload, callback);
+            
+            if (!is_soap_act_set)
+            {
+              
+              axis2_options_set_soap_action(options, env, NULL);
+              
+              axis2_options_set_action(options, env, NULL);
+            }
+         }
+
+         
+
         struct axis2_stub_Kolibre_DaisyOnline_setReadingSystemAttributes_callback_data
         {   
             void *data;
@@ -8986,292 +9272,6 @@
             axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_setReadingSystemAttributes);
             /* Set our on_error function pointer to the callback object */
             axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_setReadingSystemAttributes);
-
-            callback_data-> data = user_data;
-            callback_data-> on_complete = on_complete;
-            callback_data-> on_error = on_error;
-
-            axis2_callback_set_data(callback, (void*)callback_data);
-
-            /* Send request */
-            axis2_svc_client_send_receive_non_blocking(svc_client, env, payload, callback);
-            
-            if (!is_soap_act_set)
-            {
-              
-              axis2_options_set_soap_action(options, env, NULL);
-              
-              axis2_options_set_action(options, env, NULL);
-            }
-         }
-
-         
-
-        struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data
-        {   
-            void *data;
-            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
-                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data);
-            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data);
-        };
-
-        static axis2_status_t AXIS2_CALL axis2_stub_on_error_Kolibre_DaisyOnline_logOff(axis2_callback_t *callback, const axutil_env_t *env, int exception)
-        {
-            axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int, void *data);
-            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data* callback_data = NULL;
-
-            void *user_data = NULL;
-
-            axis2_status_t status;
-        
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*)axis2_callback_get_data(callback);
-        
-            user_data = callback_data->data;
-            on_error = callback_data->on_error;
-        
-            status = on_error(env, exception, user_data);
-
-            if(callback_data)
-            {
-                AXIS2_FREE(env->allocator, callback_data);
-            }
-            return status;
-        } 
-
-        axis2_status_t AXIS2_CALL axis2_stub_on_complete_Kolibre_DaisyOnline_logOff(axis2_callback_t *callback, const axutil_env_t *env)
-        {
-            axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
-                                                       axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data);
-            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data* callback_data = NULL;
-            void *user_data = NULL;
-            axis2_status_t status = AXIS2_SUCCESS;
-            axis2_stub_Kolibre_DaisyOnline_logOff_fault fault;
-            adb_logOffResponse_t* ret_val;
-            
-
-            axiom_node_t *ret_node = NULL;
-            axiom_soap_envelope_t *soap_envelope = NULL;
-
-            
-
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*)axis2_callback_get_data(callback);
-
-            
-            soap_envelope = axis2_callback_get_envelope(callback, env);
-            if(soap_envelope)
-            {
-                axiom_soap_body_t *soap_body;
-                soap_body = axiom_soap_envelope_get_body(soap_envelope, env);
-                if(soap_body)
-                {
-                    axiom_soap_fault_t *soap_fault = NULL;
-                    axiom_node_t *body_node = axiom_soap_body_get_base_node(soap_body, env);
-
-                    
-                    soap_fault = axiom_soap_body_get_fault (soap_body, env);
-                    if (soap_fault)
-                    {
-                        axiom_soap_fault_detail_t *soap_detail = NULL;
-                        axiom_node_t *soap_detail_node = NULL;
-
-                        soap_detail = axiom_soap_fault_get_detail(soap_fault, env);
-
-                        if(soap_detail) 
-                        {
-                            soap_detail_node = axiom_soap_fault_detail_get_base_node(soap_detail, env);    
-                        }
-                        if(soap_detail_node) 
-                        {
-                            axis2_char_t *detail_local_name = NULL;
-                            axiom_element_t *soap_detail_ele = NULL;
-                            
-                            if(axiom_node_get_node_type(soap_detail_node, env) == AXIOM_ELEMENT)
-                            {
-                                soap_detail_ele = axiom_node_get_data_element(soap_detail_node, env);
-                            }
-                           
-                            if(soap_detail_ele)
-                            {
-                                detail_local_name = axiom_element_get_localname(soap_detail_ele, env);
-                            }
-
-                            if(!detail_local_name)
-                            {
-                                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-                            }
-                
-                            else if(!axutil_strcmp(detail_local_name, "invalidOperationFault"))
-                            {
-                                adb_invalidOperationFault_t* adb_obj = NULL;
-
-                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT, AXIS2_FAILURE);
-                                
-                                adb_obj = adb_invalidOperationFault_create(env);
-                                if(adb_obj)
-                                {
-                                    if(adb_invalidOperationFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                    {
-                                        adb_invalidOperationFault_free(adb_obj, env);
-                                    }
-                                   
-                                    fault.InvalidOperationFault = adb_obj;
-                                }
-                                else {
-                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                }
-                            }
-                
-                            else if(!axutil_strcmp(detail_local_name, "internalServerErrorFault"))
-                            {
-                                adb_internalServerErrorFault_t* adb_obj = NULL;
-
-                                AXIS2_ERROR_SET(env->error, AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT, AXIS2_FAILURE);
-                                
-                                adb_obj = adb_internalServerErrorFault_create(env);
-                                if(adb_obj)
-                                {
-                                    if(adb_internalServerErrorFault_deserialize(adb_obj, env, &soap_detail_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                                    {
-                                        adb_internalServerErrorFault_free(adb_obj, env);
-                                    }
-                                   
-                                    fault.InternalServerErrorFault = adb_obj;
-                                }
-                                else {
-                                    AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                                }
-                            }
-                
-                        }
-                    }
-                    else   if(body_node)
-                    {
-                        ret_node = axiom_node_get_first_child(body_node, env);
-                    }
-                }
-                
-                
-            }
-
-            user_data = callback_data->data;
-            on_complete = callback_data->on_complete;
-
-            
-                    if(ret_node != NULL)
-                    {
-                        ret_val = adb_logOffResponse_create(env);
-     
-                        if(adb_logOffResponse_deserialize(ret_val, env, &ret_node, NULL, AXIS2_FALSE ) == AXIS2_FAILURE)
-                        {
-                            AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "NULL returnted from the LendResponse_deserialize: "
-                                                                    "This should be due to an invalid XML");
-                            adb_logOffResponse_free(ret_val, env);
-                            ret_val = NULL;
-                        }
-                     }
-                     else
-                     {
-                         ret_val = NULL; 
-                     }
-
-                     
-                         if(ret_val == NULL) {
-                            status = on_complete(env, (axis2_bool_t)NULL, fault , user_data);
-                         }
-                         else {
-                            status = on_complete(env, adb_logOffResponse_free_popping_value(ret_val, env), fault , user_data);
-                         }
-                         
- 
-            if(callback_data)
-            {
-                AXIS2_FREE(env->allocator, callback_data);
-            }
-            return status;
-        }
-
-        /**
-          * auto generated method signature for asynchronous invocations
-          * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
-          * @param stub The stub
-          * @param env environment ( mandatory)
-          * @param user_data user data to be accessed by the callbacks
-          * @param on_complete callback to handle on complete
-          * @param on_error callback to handle on error
-          */
-
-         void AXIS2_CALL
-         axis2_stub_start_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
-                                                  void *user_data,
-                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
-                                                      axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data) ,
-                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) )
-         {
-
-            axis2_callback_t *callback = NULL;
-
-            axis2_svc_client_t *svc_client = NULL;
-            axis2_options_t *options = NULL;
-
-            const axis2_char_t *soap_action = NULL;
-            axiom_node_t *payload = NULL;
-
-            axis2_bool_t is_soap_act_set = AXIS2_TRUE;
-            axutil_string_t *soap_act = NULL;
-
-            
-            
-            struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data *callback_data;
-
-            callback_data = (struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data*) AXIS2_MALLOC(env->allocator, 
-                                    sizeof(struct axis2_stub_Kolibre_DaisyOnline_logOff_callback_data));
-            if(NULL == callback_data)
-            {
-                AXIS2_ERROR_SET(env->error, AXIS2_ERROR_NO_MEMORY, AXIS2_FAILURE);
-                AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "Can not allocate memeory for the callback data structures");
-                return;
-            }
-            
-
-            
-                            {
-                               adb_logOff_t* wrapper_adb_obj = adb_logOff_create_with_values(env);
-                                payload = adb_logOff_serialize(wrapper_adb_obj, env, NULL, NULL, AXIS2_TRUE, NULL, NULL);
-                            }
-                           
-
-
-            svc_client = axis2_stub_get_svc_client(stub, env );
-            
-           
-            
-            
-
-            options = axis2_stub_get_options( stub, env);
-            if (NULL == options)
-            {
-              AXIS2_ERROR_SET(env->error, AXIS2_ERROR_INVALID_NULL_PARAM, AXIS2_FAILURE);
-              AXIS2_LOG_ERROR( env->log, AXIS2_LOG_SI, "options is null in stub");
-              return;
-            }
-
-            soap_act =axis2_options_get_soap_action (options, env);
-            if (NULL == soap_act)
-            {
-              is_soap_act_set = AXIS2_FALSE;
-              soap_action = "/logOff";
-              soap_act = axutil_string_create(env, "/logOff");
-              axis2_options_set_soap_action(options, env, soap_act);
-            }
-            
-            axis2_options_set_soap_version(options, env, AXIOM_SOAP11);
-             
-
-            callback = axis2_callback_create(env);
-            /* Set our on_complete fucntion pointer to the callback object */
-            axis2_callback_set_on_complete(callback, axis2_stub_on_complete_Kolibre_DaisyOnline_logOff);
-            /* Set our on_error function pointer to the callback object */
-            axis2_callback_set_on_error(callback, axis2_stub_on_error_Kolibre_DaisyOnline_logOff);
 
             callback_data-> data = user_data;
             callback_data-> on_complete = on_complete;

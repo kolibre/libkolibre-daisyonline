@@ -45,7 +45,8 @@ check_PROGRAMS = \
 	asyncsessionestablishment \
 	memoryleak \
 	servertest \
-	readingsystemattributes
+	readingsystemattributes \
+	stress_setreadingsystemattributes
 
 TESTS = \
 	logon.sh \
@@ -73,7 +74,8 @@ TESTS = \
 	errormissinglangattribute.sh \
 	asyncsessionestablishment.sh \
 	memoryleak.sh \
-	readingsystemattributes
+	readingsystemattributes \
+	stress_setreadingsystemattributes.sh
 
 logon_SOURCES = logon.cpp
 getserviceattributes_SOURCES = getserviceattributes.cpp
@@ -99,7 +101,7 @@ errornonetwork_SOURCES = errornonetwork.cpp
 errorinvaliduri_SOURCES = errorinvaliduri.cpp
 errormissinglangattribute_SOURCES = errormissinglangattribute.cpp
 asyncsessionestablishment_SOURCES = asyncsessionestablishment.c
-asyncsessionestablishment_CPPFLAGS = @AXIS2C_CFLAGS@ -g -I$(top_srcdir)/src -I$(top_srcdir)/src/stubs
+asyncsessionestablishment_CPPFLAGS = @AXIS2C_CFLAGS@ -g -I$(top_srcdir)/src -I$(top_srcdir)/src/stubs -I${top_builddir}/src
 asyncsessionestablishment_LDFLAGS = @AXIS2C_LIBS@ \
 									-laxutil \
 									-laxis2_axiom \
@@ -113,6 +115,7 @@ servertest_SOURCES = servertest.cpp
 readingsystemattributes_SOURCES = readingsystemattributes.cpp
 readingsystemattributes_CPPFLAGS = -I$(top_srcdir)/src
 readingsystemattributes_LDADD = $(top_builddir)/src/libkolibre_daisyonline_la-ReadingSystemAttributes.lo
+stress_setreadingsystemattributes_SOURCES = stress_setreadingsystemattributes.cpp
 
 LDADD = -lkolibre-daisyonline
 AM_LDFLAGS = -L$(top_builddir)/src @LOG4CXX_LIBS@
@@ -139,6 +142,7 @@ EXTRA_DIST = \
 	faults \
 	missingLangAttribute \
 	memoryLeak \
+	stress_setReadingSystemAttributes \
 	asyncsessionestablishment.sh \
 	logon.sh \
 	getserviceattributes.sh \
@@ -164,6 +168,7 @@ EXTRA_DIST = \
 	errorinvaliduri.sh \
 	errornonetwork.sh \
 	memoryleak.sh \
+	stress_setreadingsystemattributes.sh \
 	setup_logging.h \
 	memoryleak.supp \
 	run

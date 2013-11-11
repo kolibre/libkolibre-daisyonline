@@ -23,7 +23,7 @@
         * axis2_stub_Kolibre_DaisyOnline.h
         *
         * This file was auto-generated from WSDL for "Kolibre_DaisyOnline|http://www.daisy.org/ns/daisy-online/" service
-        * by the Apache Axis2/Java version: 1.6.2  Built on : Oct 19, 2012 (02:20:14 EEST)
+        * by the Apache Axis2/Java version: 1.6.2  Built on : Nov 05, 2013 (09:20:58 EET)
         */
 
         #include <stdio.h>
@@ -96,6 +96,14 @@
         
          #include "adb_noActiveSessionFault.h"
         
+         #include "adb_logOn.h"
+        
+         #include "adb_logOnResponse.h"
+        
+         #include "adb_internalServerErrorFault.h"
+        
+         #include "adb_invalidOperationFault.h"
+        
          #include "adb_setBookmarks.h"
         
          #include "adb_setBookmarksResponse.h"
@@ -109,14 +117,6 @@
          #include "adb_noActiveSessionFault.h"
         
          #include "adb_internalServerErrorFault.h"
-        
-         #include "adb_logOn.h"
-        
-         #include "adb_logOnResponse.h"
-        
-         #include "adb_internalServerErrorFault.h"
-        
-         #include "adb_invalidOperationFault.h"
         
          #include "adb_getContentList.h"
         
@@ -156,6 +156,14 @@
         
          #include "adb_noActiveSessionFault.h"
         
+         #include "adb_logOff.h"
+        
+         #include "adb_logOffResponse.h"
+        
+         #include "adb_invalidOperationFault.h"
+        
+         #include "adb_internalServerErrorFault.h"
+        
          #include "adb_setReadingSystemAttributes.h"
         
          #include "adb_setReadingSystemAttributesResponse.h"
@@ -167,14 +175,6 @@
          #include "adb_internalServerErrorFault.h"
         
          #include "adb_invalidParameterFault.h"
-        
-         #include "adb_logOff.h"
-        
-         #include "adb_logOffResponse.h"
-        
-         #include "adb_invalidOperationFault.h"
-        
-         #include "adb_internalServerErrorFault.h"
         
          #include "adb_returnContent.h"
         
@@ -325,6 +325,18 @@
             } axis2_stub_Kolibre_DaisyOnline_getServiceAttributes_fault;
          
             /**
+             * the generated fault union for operation "logOn",
+             * in a case the server return a fault, the corresponding adb object will be loaded for
+             * the union variable pointer comes as the last parameter of the method
+             */
+            typedef union
+            {
+                adb_internalServerErrorFault_t* InternalServerErrorFault;
+                adb_invalidOperationFault_t* InvalidOperationFault;
+                
+            } axis2_stub_Kolibre_DaisyOnline_logOn_fault;
+         
+            /**
              * the generated fault union for operation "setBookmarks",
              * in a case the server return a fault, the corresponding adb object will be loaded for
              * the union variable pointer comes as the last parameter of the method
@@ -338,18 +350,6 @@
                 adb_internalServerErrorFault_t* InternalServerErrorFault;
                 
             } axis2_stub_Kolibre_DaisyOnline_setBookmarks_fault;
-         
-            /**
-             * the generated fault union for operation "logOn",
-             * in a case the server return a fault, the corresponding adb object will be loaded for
-             * the union variable pointer comes as the last parameter of the method
-             */
-            typedef union
-            {
-                adb_internalServerErrorFault_t* InternalServerErrorFault;
-                adb_invalidOperationFault_t* InvalidOperationFault;
-                
-            } axis2_stub_Kolibre_DaisyOnline_logOn_fault;
          
             /**
              * the generated fault union for operation "getContentList",
@@ -395,6 +395,18 @@
             } axis2_stub_Kolibre_DaisyOnline_issueContent_fault;
          
             /**
+             * the generated fault union for operation "logOff",
+             * in a case the server return a fault, the corresponding adb object will be loaded for
+             * the union variable pointer comes as the last parameter of the method
+             */
+            typedef union
+            {
+                adb_invalidOperationFault_t* InvalidOperationFault;
+                adb_internalServerErrorFault_t* InternalServerErrorFault;
+                
+            } axis2_stub_Kolibre_DaisyOnline_logOff_fault;
+         
+            /**
              * the generated fault union for operation "setReadingSystemAttributes",
              * in a case the server return a fault, the corresponding adb object will be loaded for
              * the union variable pointer comes as the last parameter of the method
@@ -407,18 +419,6 @@
                 adb_invalidParameterFault_t* InvalidParameterFault;
                 
             } axis2_stub_Kolibre_DaisyOnline_setReadingSystemAttributes_fault;
-         
-            /**
-             * the generated fault union for operation "logOff",
-             * in a case the server return a fault, the corresponding adb object will be loaded for
-             * the union variable pointer comes as the last parameter of the method
-             */
-            typedef union
-            {
-                adb_invalidOperationFault_t* InvalidOperationFault;
-                adb_internalServerErrorFault_t* InternalServerErrorFault;
-                
-            } axis2_stub_Kolibre_DaisyOnline_logOff_fault;
          
             /**
              * the generated fault union for operation "returnContent",
@@ -539,23 +539,6 @@
           
             /**
              * Auto generated function declaration
-             * for "setBookmarks|http://www.daisy.org/ns/daisy-online/" operation.
-             * @param stub The stub (axis2_stub_t)
-             * @param env environment ( mandatory)
-             * @param _contentID2 of the axis2_char_t*
-             * @param _bookmarkSet3 of the adb_bookmarkSet_type0_t*
-             *
-             * @return axis2_bool_t
-             */
-
-            axis2_bool_t AXIS2_CALL 
-            axis2_stub_op_Kolibre_DaisyOnline_setBookmarks( axis2_stub_t *stub, const axutil_env_t *env,
-                                                  axis2_char_t* _contentID2,
-                                                  adb_bookmarkSet_type0_t* _bookmarkSet3,
-                                                        axis2_stub_Kolibre_DaisyOnline_setBookmarks_fault *fault);
-          
-            /**
-             * Auto generated function declaration
              * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
              * @param stub The stub (axis2_stub_t)
              * @param env environment ( mandatory)
@@ -570,6 +553,23 @@
                                                   axis2_char_t* _username,
                                                   axis2_char_t* _password,
                                                         axis2_stub_Kolibre_DaisyOnline_logOn_fault *fault);
+          
+            /**
+             * Auto generated function declaration
+             * for "setBookmarks|http://www.daisy.org/ns/daisy-online/" operation.
+             * @param stub The stub (axis2_stub_t)
+             * @param env environment ( mandatory)
+             * @param _contentID2 of the axis2_char_t*
+             * @param _bookmarkSet3 of the adb_bookmarkSet_type0_t*
+             *
+             * @return axis2_bool_t
+             */
+
+            axis2_bool_t AXIS2_CALL 
+            axis2_stub_op_Kolibre_DaisyOnline_setBookmarks( axis2_stub_t *stub, const axutil_env_t *env,
+                                                  axis2_char_t* _contentID2,
+                                                  adb_bookmarkSet_type0_t* _bookmarkSet3,
+                                                        axis2_stub_Kolibre_DaisyOnline_setBookmarks_fault *fault);
           
             /**
              * Auto generated function declaration
@@ -622,6 +622,19 @@
           
             /**
              * Auto generated function declaration
+             * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
+             * @param stub The stub (axis2_stub_t)
+             * @param env environment ( mandatory)
+             *
+             * @return axis2_bool_t
+             */
+
+            axis2_bool_t AXIS2_CALL 
+            axis2_stub_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
+                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault *fault);
+          
+            /**
+             * Auto generated function declaration
              * for "setReadingSystemAttributes|http://www.daisy.org/ns/daisy-online/" operation.
              * @param stub The stub (axis2_stub_t)
              * @param env environment ( mandatory)
@@ -634,19 +647,6 @@
             axis2_stub_op_Kolibre_DaisyOnline_setReadingSystemAttributes( axis2_stub_t *stub, const axutil_env_t *env,
                                                   adb_readingSystemAttributes_type0_t* _readingSystemAttributes,
                                                         axis2_stub_Kolibre_DaisyOnline_setReadingSystemAttributes_fault *fault);
-          
-            /**
-             * Auto generated function declaration
-             * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
-             * @param stub The stub (axis2_stub_t)
-             * @param env environment ( mandatory)
-             *
-             * @return axis2_bool_t
-             */
-
-            axis2_bool_t AXIS2_CALL 
-            axis2_stub_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
-                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault *fault);
           
             /**
              * Auto generated function declaration
@@ -802,30 +802,6 @@
 
         /**
          * Auto generated function for asynchronous invocations
-         * for "setBookmarks|http://www.daisy.org/ns/daisy-online/" operation.
-         * @param stub The stub
-         * @param env environment ( mandatory)
-         * @param _contentID2 of the axis2_char_t*
-         * @param _bookmarkSet3 of the adb_bookmarkSet_type0_t*
-         * @param user_data user data to be accessed by the callbacks
-         * @param on_complete callback to handle on complete
-         * @param on_error callback to handle on error
-         */
-
-
-        void AXIS2_CALL
-        axis2_stub_start_op_Kolibre_DaisyOnline_setBookmarks( axis2_stub_t *stub, const axutil_env_t *env,
-                                                  axis2_char_t* _contentID2,
-                                                  adb_bookmarkSet_type0_t* _bookmarkSet3,
-                                                  void *user_data,
-                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _setBookmarksResponse,
-                                                        axis2_stub_Kolibre_DaisyOnline_setBookmarks_fault fault, void *data),
-                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
-
-        
-
-        /**
-         * Auto generated function for asynchronous invocations
          * for "logOn|http://www.daisy.org/ns/daisy-online/" operation.
          * @param stub The stub
          * @param env environment ( mandatory)
@@ -844,6 +820,30 @@
                                                   void *user_data,
                                                   axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOnResponse,
                                                         axis2_stub_Kolibre_DaisyOnline_logOn_fault fault, void *data),
+                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
+
+        
+
+        /**
+         * Auto generated function for asynchronous invocations
+         * for "setBookmarks|http://www.daisy.org/ns/daisy-online/" operation.
+         * @param stub The stub
+         * @param env environment ( mandatory)
+         * @param _contentID2 of the axis2_char_t*
+         * @param _bookmarkSet3 of the adb_bookmarkSet_type0_t*
+         * @param user_data user data to be accessed by the callbacks
+         * @param on_complete callback to handle on complete
+         * @param on_error callback to handle on error
+         */
+
+
+        void AXIS2_CALL
+        axis2_stub_start_op_Kolibre_DaisyOnline_setBookmarks( axis2_stub_t *stub, const axutil_env_t *env,
+                                                  axis2_char_t* _contentID2,
+                                                  adb_bookmarkSet_type0_t* _bookmarkSet3,
+                                                  void *user_data,
+                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _setBookmarksResponse,
+                                                        axis2_stub_Kolibre_DaisyOnline_setBookmarks_fault fault, void *data),
                                                   axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
 
         
@@ -920,6 +920,26 @@
 
         /**
          * Auto generated function for asynchronous invocations
+         * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
+         * @param stub The stub
+         * @param env environment ( mandatory)
+         * @param user_data user data to be accessed by the callbacks
+         * @param on_complete callback to handle on complete
+         * @param on_error callback to handle on error
+         */
+
+
+        void AXIS2_CALL
+        axis2_stub_start_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
+                                                  void *user_data,
+                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
+                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data),
+                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
+
+        
+
+        /**
+         * Auto generated function for asynchronous invocations
          * for "setReadingSystemAttributes|http://www.daisy.org/ns/daisy-online/" operation.
          * @param stub The stub
          * @param env environment ( mandatory)
@@ -936,26 +956,6 @@
                                                   void *user_data,
                                                   axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _setReadingSystemAttributesResponse,
                                                         axis2_stub_Kolibre_DaisyOnline_setReadingSystemAttributes_fault fault, void *data),
-                                                  axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
-
-        
-
-        /**
-         * Auto generated function for asynchronous invocations
-         * for "logOff|http://www.daisy.org/ns/daisy-online/" operation.
-         * @param stub The stub
-         * @param env environment ( mandatory)
-         * @param user_data user data to be accessed by the callbacks
-         * @param on_complete callback to handle on complete
-         * @param on_error callback to handle on error
-         */
-
-
-        void AXIS2_CALL
-        axis2_stub_start_op_Kolibre_DaisyOnline_logOff( axis2_stub_t *stub, const axutil_env_t *env,
-                                                  void *user_data,
-                                                  axis2_status_t ( AXIS2_CALL *on_complete ) (const axutil_env_t *, axis2_bool_t _logOffResponse,
-                                                        axis2_stub_Kolibre_DaisyOnline_logOff_fault fault, void *data),
                                                   axis2_status_t ( AXIS2_CALL *on_error ) (const axutil_env_t *, int exception, void *data) );
 
         
@@ -1053,13 +1053,13 @@
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETSERVICEATTRIBUTES_FAULT_INVALIDOPERATIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETSERVICEATTRIBUTES_FAULT_INTERNALSERVERERRORFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETSERVICEATTRIBUTES_FAULT_NOACTIVESESSIONFAULT,
+            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT,
+            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETBOOKMARKS_FAULT_INVALIDOPERATIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETBOOKMARKS_FAULT_INVALIDPARAMETERFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETBOOKMARKS_FAULT_OPERATIONNOTSUPPORTEDFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETBOOKMARKS_FAULT_NOACTIVESESSIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETBOOKMARKS_FAULT_INTERNALSERVERERRORFAULT,
-            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INTERNALSERVERERRORFAULT,
-            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGON_FAULT_INVALIDOPERATIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETCONTENTLIST_FAULT_INVALIDPARAMETERFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETCONTENTLIST_FAULT_NOACTIVESESSIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_GETCONTENTLIST_FAULT_INVALIDOPERATIONFAULT,
@@ -1073,12 +1073,12 @@
             AXIS2_STUB_KOLIBRE_DAISYONLINE_ISSUECONTENT_FAULT_INTERNALSERVERERRORFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_ISSUECONTENT_FAULT_INVALIDPARAMETERFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_ISSUECONTENT_FAULT_NOACTIVESESSIONFAULT,
+            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT,
+            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETREADINGSYSTEMATTRIBUTES_FAULT_NOACTIVESESSIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETREADINGSYSTEMATTRIBUTES_FAULT_INVALIDOPERATIONFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETREADINGSYSTEMATTRIBUTES_FAULT_INTERNALSERVERERRORFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_SETREADINGSYSTEMATTRIBUTES_FAULT_INVALIDPARAMETERFAULT,
-            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INVALIDOPERATIONFAULT,
-            AXIS2_STUB_KOLIBRE_DAISYONLINE_LOGOFF_FAULT_INTERNALSERVERERRORFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_RETURNCONTENT_FAULT_INVALIDPARAMETERFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_RETURNCONTENT_FAULT_OPERATIONNOTSUPPORTEDFAULT,
             AXIS2_STUB_KOLIBRE_DAISYONLINE_RETURNCONTENT_FAULT_INVALIDOPERATIONFAULT,
