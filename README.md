@@ -97,4 +97,3 @@ GNU Lesser General Public License for more details.
 You should have received a copy of the GNU Lesser General Public License
 along with libkolibre-daisyonline. If not, see <http://www.gnu.org/licenses/>.
 
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/0cf75055fad7de208a61fb9ee67c3b62 "githalytics.com")](http://githalytics.com/kolibre/libkolibre-daisyonline)
